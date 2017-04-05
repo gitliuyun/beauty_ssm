@@ -31,8 +31,14 @@ public class UserController {
 		return "userlist";
 	}
 	
-	@RequestMapping(value = "/tables", method = RequestMethod.GET)
-	public String aaa(Model model) {
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index(Model model) {
+		LOG.info("invoke----------/user/index");
+		return "index";
+	}
+	
+	@RequestMapping(value = "/tables", method = RequestMethod.POST)
+	public String tables(Model model) {
 		LOG.info("invoke----------/user/tables");
 		return "tables";
 	}
