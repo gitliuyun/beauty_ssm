@@ -30,5 +30,10 @@ public class UserController {
 		model.addAttribute("userlist", list);
 		return "userlist";
 	}
-
+	
+	@RequestMapping(value = "/tables", method = RequestMethod.GET)
+	public String aaa(Model model) {
+		LOG.info("invoke----------/user/tables");
+		return "tables";
+	}
 }
