@@ -5,13 +5,13 @@ import com.yingjun.ssm.entity.Biwhiteardinfotb;
 public interface BiwhiteardinfotbDao {
     int deleteByPrimaryKey(Long biwhitecardinfotbId);
 
-    int insert(BiwhiteardinfotbDao record);
+    int insert(Biwhiteardinfotb record);
 
-    int insertSelective(BiwhiteardinfotbDao record);
+    int insertSelective(Biwhiteardinfotb record);
 
     BiwhiteardinfotbDao selectByPrimaryKey(Long biwhitecardinfotbId);
 
-    int updateByPrimaryKeySelective(BiwhiteardinfotbDao record);
+    int updateByPrimaryKeySelective(Biwhiteardinfotb record);
 
-    int updateByPrimaryKey(BiwhiteardinfotbDao record);
+    int updateByPrimaryKey(Biwhiteardinfotb record);
 }

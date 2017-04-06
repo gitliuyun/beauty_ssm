@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yingjun.ssm.dao.BiwhiteardinfotbDaoMapper">
-  <resultMap id="BaseResultMap" type="com.yingjun.ssm.entity.BiwhiteardinfotbDao">
+  <resultMap id="BaseResultMap" type="com.yingjun.ssm.entity.Biwhiteardinfotb">
     <id column="biwhitecardinfotb_id" jdbcType="BIGINT" property="biwhitecardinfotbId" />
     <result column="cardno" jdbcType="VARCHAR" property="cardno" />
     <result column="kktype" jdbcType="VARCHAR" property="kktype" />
@@ -25,7 +25,7 @@
     delete from biwhitecardinfotb
     where biwhitecardinfotb_id = #{biwhitecardinfotbId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.yingjun.ssm.entity.BiwhiteardinfotbDao">
+  <insert id="insert" parameterType="com.yingjun.ssm.entity.Biwhiteardinfotb">
     insert into biwhitecardinfotb (biwhitecardinfotb_id, cardno, kktype, 
       unitcode, mobileno, productcompany, 
       productmodel, rsvd)
@@ -33,7 +33,7 @@
       #{unitcode,jdbcType=VARCHAR}, #{mobileno,jdbcType=VARCHAR}, #{productcompany,jdbcType=VARCHAR}, 
       #{productmodel,jdbcType=VARCHAR}, #{rsvd,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yingjun.ssm.entity.BiwhiteardinfotbDao">
+  <insert id="insertSelective" parameterType="com.yingjun.ssm.entity.Biwhiteardinfotb">
     insert into biwhitecardinfotb
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="biwhitecardinfotbId != null">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yingjun.ssm.entity.BiwhiteardinfotbDao">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yingjun.ssm.entity.Biwhiteardinfotb">
     update biwhitecardinfotb
     <set>
       <if test="cardno != null">
@@ -115,7 +115,7 @@
     </set>
     where biwhitecardinfotb_id = #{biwhitecardinfotbId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yingjun.ssm.entity.BiwhiteardinfotbDao">
+  <update id="updateByPrimaryKey" parameterType="com.yingjun.ssm.entity.Biwhiteardinfotb">
     update biwhitecardinfotb
     set cardno = #{cardno,jdbcType=VARCHAR},
       kktype = #{kktype,jdbcType=VARCHAR},
