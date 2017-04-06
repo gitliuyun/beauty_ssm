@@ -24,91 +24,11 @@
     <result column="productmodel" jdbcType="VARCHAR" property="productmodel" />
     <result column="rsvd" jdbcType="VARCHAR" property="rsvd" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
   <sql id="Base_Column_List">
     tjtsmcardtxnjrltb_id, fileid, fileno, unitno, filever, birthdate, cardno, cardtype, 
     transdate, transtype, totalnum, totalsum, industrycode, unitid, shopno, kktype, unitcode, 
     mobileno, productcompany, productmodel, rsvd
   </sql>
-  <select id="selectByExample" parameterType="com.yingjun.ssm.entity.TjtsmcardtxnjrltbExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tjtsmcardtxnjrltb
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -118,12 +38,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tjtsmcardtxnjrltb
     where tjtsmcardtxnjrltb_id = #{tjtsmcardtxnjrltbId,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.yingjun.ssm.entity.TjtsmcardtxnjrltbExample">
-    delete from tjtsmcardtxnjrltb
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   <insert id="insert" parameterType="com.yingjun.ssm.entity.Tjtsmcardtxnjrltb">
     insert into tjtsmcardtxnjrltb (tjtsmcardtxnjrltb_id, fileid, fileno, 
@@ -276,110 +190,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yingjun.ssm.entity.TjtsmcardtxnjrltbExample" resultType="java.lang.Long">
-    select count(*) from tjtsmcardtxnjrltb
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update tjtsmcardtxnjrltb
-    <set>
-      <if test="record.tjtsmcardtxnjrltbId != null">
-        tjtsmcardtxnjrltb_id = #{record.tjtsmcardtxnjrltbId,jdbcType=BIGINT},
-      </if>
-      <if test="record.fileid != null">
-        fileid = #{record.fileid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fileno != null">
-        fileno = #{record.fileno,jdbcType=VARCHAR},
-      </if>
-      <if test="record.unitno != null">
-        unitno = #{record.unitno,jdbcType=VARCHAR},
-      </if>
-      <if test="record.filever != null">
-        filever = #{record.filever,jdbcType=VARCHAR},
-      </if>
-      <if test="record.birthdate != null">
-        birthdate = #{record.birthdate,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cardno != null">
-        cardno = #{record.cardno,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cardtype != null">
-        cardtype = #{record.cardtype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.transdate != null">
-        transdate = #{record.transdate,jdbcType=VARCHAR},
-      </if>
-      <if test="record.transtype != null">
-        transtype = #{record.transtype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.totalnum != null">
-        totalnum = #{record.totalnum,jdbcType=INTEGER},
-      </if>
-      <if test="record.totalsum != null">
-        totalsum = #{record.totalsum,jdbcType=INTEGER},
-      </if>
-      <if test="record.industrycode != null">
-        industrycode = #{record.industrycode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.unitid != null">
-        unitid = #{record.unitid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.shopno != null">
-        shopno = #{record.shopno,jdbcType=VARCHAR},
-      </if>
-      <if test="record.kktype != null">
-        kktype = #{record.kktype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.unitcode != null">
-        unitcode = #{record.unitcode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobileno != null">
-        mobileno = #{record.mobileno,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productcompany != null">
-        productcompany = #{record.productcompany,jdbcType=VARCHAR},
-      </if>
-      <if test="record.productmodel != null">
-        productmodel = #{record.productmodel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.rsvd != null">
-        rsvd = #{record.rsvd,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update tjtsmcardtxnjrltb
-    set tjtsmcardtxnjrltb_id = #{record.tjtsmcardtxnjrltbId,jdbcType=BIGINT},
-      fileid = #{record.fileid,jdbcType=VARCHAR},
-      fileno = #{record.fileno,jdbcType=VARCHAR},
-      unitno = #{record.unitno,jdbcType=VARCHAR},
-      filever = #{record.filever,jdbcType=VARCHAR},
-      birthdate = #{record.birthdate,jdbcType=VARCHAR},
-      cardno = #{record.cardno,jdbcType=VARCHAR},
-      cardtype = #{record.cardtype,jdbcType=VARCHAR},
-      transdate = #{record.transdate,jdbcType=VARCHAR},
-      transtype = #{record.transtype,jdbcType=VARCHAR},
-      totalnum = #{record.totalnum,jdbcType=INTEGER},
-      totalsum = #{record.totalsum,jdbcType=INTEGER},
-      industrycode = #{record.industrycode,jdbcType=VARCHAR},
-      unitid = #{record.unitid,jdbcType=VARCHAR},
-      shopno = #{record.shopno,jdbcType=VARCHAR},
-      kktype = #{record.kktype,jdbcType=VARCHAR},
-      unitcode = #{record.unitcode,jdbcType=VARCHAR},
-      mobileno = #{record.mobileno,jdbcType=VARCHAR},
-      productcompany = #{record.productcompany,jdbcType=VARCHAR},
-      productmodel = #{record.productmodel,jdbcType=VARCHAR},
-      rsvd = #{record.rsvd,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.yingjun.ssm.entity.Tjtsmcardtxnjrltb">
     update tjtsmcardtxnjrltb
     <set>

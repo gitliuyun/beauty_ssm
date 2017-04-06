@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author 
  */
-public class Biwhitecardinfotb implements Serializable {
+public class Biwhiteardinfotb implements Serializable {
     private Long biwhitecardinfotbId;
 
     private String cardno;
