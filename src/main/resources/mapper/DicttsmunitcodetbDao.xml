@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yingjun.ssm.dao.DicttsmunitcodetbMapper">
+<mapper namespace="com.yingjun.ssm.dao.DicttsmunitcodetbDao">
   <resultMap id="BaseResultMap" type="com.yingjun.ssm.entity.Dicttsmunitcodetb">
     <id column="dicttsmunitcodetb_id" jdbcType="BIGINT" property="dicttsmunitcodetbId" />
     <result column="unitid" jdbcType="VARCHAR" property="unitid" />

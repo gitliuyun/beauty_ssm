@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yingjun.ssm.dao.MngusertbMapper">
+<mapper namespace="com.yingjun.ssm.dao.MngusertbDao">
   <resultMap id="BaseResultMap" type="com.yingjun.ssm.entity.Mngusertb">
     <id column="mngusertb_id" jdbcType="BIGINT" property="mngusertbId" />
     <result column="systemid" jdbcType="VARCHAR" property="systemid" />

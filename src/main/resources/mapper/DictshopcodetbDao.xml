@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yingjun.ssm.dao.DictshopcodetbMapper">
+<mapper namespace="com.yingjun.ssm.dao.DictshopcodetbDao">
   <resultMap id="BaseResultMap" type="com.yingjun.ssm.entity.Dictshopcodetb">
     <id column="dictshopcodetb_id" jdbcType="BIGINT" property="dictshopcodetbId" />
     <result column="shopno" jdbcType="VARCHAR" property="shopno" />
@@ -16,6 +16,13 @@
     from dictshopcodetb
     where dictshopcodetb_id = #{dictshopcodetbId,jdbcType=BIGINT}
   </select>
+  
+  <select id="queryByCondition" parameterType="Map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from dictshopcodetb where 1=1
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from dictshopcodetb
     where dictshopcodetb_id = #{dictshopcodetbId,jdbcType=BIGINT}

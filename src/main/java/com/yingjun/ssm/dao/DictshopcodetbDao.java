@@ -1,5 +1,7 @@
 package com.yingjun.ssm.dao;
 
+import java.util.List;
+
 import com.yingjun.ssm.entity.Dictshopcodetb;
 
 public interface DictshopcodetbDao {
@@ -10,6 +12,8 @@ public interface DictshopcodetbDao {
     int insertSelective(Dictshopcodetb record);
 
     Dictshopcodetb selectByPrimaryKey(Long dictshopcodetbId);
+
+    List<Dictshopcodetb> queryByCondition();
 
     int updateByPrimaryKeySelective(Dictshopcodetb record);
 

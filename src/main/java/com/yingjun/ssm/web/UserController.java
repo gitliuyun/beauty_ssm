@@ -20,7 +20,7 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, Integer offset, Integer limit) {
 		LOG.info("invoke----------/user/list");
