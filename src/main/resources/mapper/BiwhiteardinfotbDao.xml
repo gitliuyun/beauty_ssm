@@ -21,6 +21,14 @@
     from biwhitecardinfotb
     where biwhitecardinfotb_id = #{biwhitecardinfotbId,jdbcType=BIGINT}
   </select>
+  
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from biwhitecardinfotb
+    where 1=1
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from biwhitecardinfotb
     where biwhitecardinfotb_id = #{biwhitecardinfotbId,jdbcType=BIGINT}

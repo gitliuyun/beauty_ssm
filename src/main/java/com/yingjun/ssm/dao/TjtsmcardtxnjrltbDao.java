@@ -1,5 +1,7 @@
 package com.yingjun.ssm.dao;
 
+import java.util.List;
+
 import com.yingjun.ssm.entity.Tjtsmcardtxnjrltb;
 
 public interface TjtsmcardtxnjrltbDao {
@@ -14,4 +16,6 @@ public interface TjtsmcardtxnjrltbDao {
     int updateByPrimaryKeySelective(Tjtsmcardtxnjrltb record);
 
     int updateByPrimaryKey(Tjtsmcardtxnjrltb record);
+    
+    List<Tjtsmcardtxnjrltb> queryByCondition();
 }

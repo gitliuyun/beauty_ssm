@@ -1,5 +1,7 @@
 package com.yingjun.ssm.dao;
 
+import java.util.List;
+
 import com.yingjun.ssm.entity.Biwhiteardinfotb;
 
 public interface BiwhiteardinfotbDao {
@@ -14,4 +16,6 @@ public interface BiwhiteardinfotbDao {
     int updateByPrimaryKeySelective(Biwhiteardinfotb record);
 
     int updateByPrimaryKey(Biwhiteardinfotb record);
+    
+    List<Biwhiteardinfotb> queryByCondition();
 }

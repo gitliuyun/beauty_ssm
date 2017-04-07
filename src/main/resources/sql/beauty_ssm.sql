@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : localhost1
 Source Server Version : 50520
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : beauty_ssm
 
 Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2017-04-05 16:36:09
+Date: 2017-04-07 16:47:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,11 +29,13 @@ CREATE TABLE `biwhitecardinfotb` (
   `productmodel` varchar(20) NOT NULL,
   `rsvd` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`biwhitecardinfotb_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of biwhitecardinfotb
 -- ----------------------------
+INSERT INTO `biwhitecardinfotb` VALUES ('1', '1000751160000000', 'KY', '2000', '15010680971', 'samsung', 'SM-N9150', '20150526233039');
+INSERT INTO `biwhitecardinfotb` VALUES ('2', '1000751160000001', 'KY', '2000', '18210121406', 'samsung', 'SM-N9150', '20150508112504');
 
 -- ----------------------------
 -- Table structure for dictbmacunitcodetb
@@ -61,11 +63,13 @@ CREATE TABLE `dictshopcodetb` (
   `shopname` varchar(100) NOT NULL,
   `rsvd` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`dictshopcodetb_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dictshopcodetb
 -- ----------------------------
+INSERT INTO `dictshopcodetb` VALUES ('1', '000010000001', '北京联华快客便利超市有限公司', '75111005');
+INSERT INTO `dictshopcodetb` VALUES ('2', '000010000002', '北京金凤成祥食品有限责任公司', '75111005');
 
 -- ----------------------------
 -- Table structure for dicttsmunitcodetb
@@ -81,6 +85,29 @@ CREATE TABLE `dicttsmunitcodetb` (
 
 -- ----------------------------
 -- Records of dicttsmunitcodetb
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for machineinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `machineinfo`;
+CREATE TABLE `machineinfo` (
+  `machineInfoId` bigint(20) NOT NULL,
+  `deviceType` varchar(50) DEFAULT NULL,
+  `deviceCompany` varchar(50) DEFAULT NULL,
+  `recordTime` datetime DEFAULT NULL,
+  `cardNumber` int(11) DEFAULT NULL,
+  `busNumber` int(11) DEFAULT NULL,
+  `subwayNumber` int(11) DEFAULT NULL,
+  `usedInOtherIndustry` varchar(5) DEFAULT NULL,
+  `hasComplain` varchar(5) DEFAULT NULL,
+  `isFormal` varchar(5) DEFAULT NULL,
+  `resv` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`machineInfoId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of machineinfo
 -- ----------------------------
 
 -- ----------------------------
@@ -178,7 +205,7 @@ CREATE TABLE `_goods` (
 -- ----------------------------
 -- Records of _goods
 -- ----------------------------
-INSERT INTO `_goods` VALUES ('1000', 'iphone7', '1', '3999', '100', '2017-04-05 09:34:39', null);
+INSERT INTO `_goods` VALUES ('1000', 'iphone7', '1', '3999', '99', '2017-04-05 09:34:39', null);
 INSERT INTO `_goods` VALUES ('1001', 'ipad3', '1', '1999', '2000', '2017-04-05 09:34:39', null);
 
 -- ----------------------------
@@ -217,8 +244,8 @@ CREATE TABLE `_user` (
 -- ----------------------------
 -- Records of _user
 -- ----------------------------
-INSERT INTO `_user` VALUES ('1000', '阿坚', '18768128888', '2360', '2017-04-05 09:34:39');
-INSERT INTO `_user` VALUES ('1001', '小明', '18968129999', '2360', '2017-04-05 09:34:39');
+INSERT INTO `_user` VALUES ('1000', '阿坚', '18768128888', '7120', '2017-04-05 09:34:39');
+INSERT INTO `_user` VALUES ('1001', '小明', '18968129999', '7120', '2017-04-05 09:34:39');
 
 -- ----------------------------
 -- Procedure structure for execute_buy

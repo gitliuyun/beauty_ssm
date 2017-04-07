@@ -35,6 +35,12 @@
     from tjtsmcardtxnjrltb
     where tjtsmcardtxnjrltb_id = #{tjtsmcardtxnjrltbId,jdbcType=BIGINT}
   </select>
+  <select id="queryByCondition" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tjtsmcardtxnjrltb
+    where 1=1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tjtsmcardtxnjrltb
     where tjtsmcardtxnjrltb_id = #{tjtsmcardtxnjrltbId,jdbcType=BIGINT}

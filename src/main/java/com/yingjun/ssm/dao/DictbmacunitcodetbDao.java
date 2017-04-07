@@ -1,5 +1,7 @@
 package com.yingjun.ssm.dao;
 
+import java.util.List;
+
 import com.yingjun.ssm.entity.Dictbmacunitcodetb;
 
 public interface DictbmacunitcodetbDao {
@@ -14,4 +16,6 @@ public interface DictbmacunitcodetbDao {
     int updateByPrimaryKeySelective(Dictbmacunitcodetb record);
 
     int updateByPrimaryKey(Dictbmacunitcodetb record);
+    
+    List<Dictbmacunitcodetb> queryByCondition();
 }
