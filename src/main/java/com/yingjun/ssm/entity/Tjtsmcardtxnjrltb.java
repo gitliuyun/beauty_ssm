@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author 
  */
-public class Tjtsmcardtxnjrltb implements Serializable {
+public class Tjtsmcardtxnjrltb implements Serializable,Cloneable {
     private Long tjtsmcardtxnjrltbId;
 
     private String fileid;
@@ -216,5 +216,10 @@ public class Tjtsmcardtxnjrltb implements Serializable {
 
     public void setRsvd(String rsvd) {
         this.rsvd = rsvd;
+    }
+    
+    @Override  
+    public Object clone() throws CloneNotSupportedException{  
+        return (Tjtsmcardtxnjrltb)super.clone();  
     }
 }

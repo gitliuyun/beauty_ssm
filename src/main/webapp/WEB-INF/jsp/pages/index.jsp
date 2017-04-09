@@ -88,7 +88,7 @@
                                     <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/dictionaryList')">单位字典维护</a>
                                 </li>
                                 <li>
-                                    <a href="icons.html"> 行业代码信息维护</a>
+                                    <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/fileImport')"> 信息导入</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
