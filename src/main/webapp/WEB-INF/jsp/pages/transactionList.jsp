@@ -45,7 +45,6 @@
 								<td>${transaction.cardno}</td>
 								<td>${transaction.cardtype}</td>
 								<td>${transaction.transdate}</td>
-								<td>${transaction.transtype}</td>
 								<td>${transaction.totalnum}</td>
 								<td>${transaction.totalsum}</td>
 								<td>${transaction.industrycode}</td>

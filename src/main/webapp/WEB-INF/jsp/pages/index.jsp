@@ -97,7 +97,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 统计分析<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/machineList')">白名单列表</a>
+                                    <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/machineList')">机型列表</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/pieChart')">机型使用情况统计</a>

@@ -11,10 +11,23 @@
     <result column="productmodel" jdbcType="VARCHAR" property="productmodel" />
     <result column="rsvd" jdbcType="VARCHAR" property="rsvd" />
   </resultMap>
+  
+  <sql id="Transation_Comp_List">
+    cardno, mobileno, productcompany, productmodel, 
+    rsvd
+  </sql>
+  
   <sql id="Base_Column_List">
     biwhitecardinfotb_id, cardno, kktype, unitcode, mobileno, productcompany, productmodel, 
     rsvd
   </sql>
+  
+  <select id="queryAllCardInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Transation_Comp_List" />
+    from biwhitecardinfotb
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -26,7 +39,11 @@
     select 
     <include refid="Base_Column_List" />
     from biwhitecardinfotb
-    where 1=1
+    where 1=1 limit 1000
+  </select>
+  
+  <select id="queryAllCardNo" resultType="java.lang.String">
+    select cardno from biwhitecardinfotb
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

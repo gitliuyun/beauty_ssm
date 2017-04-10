@@ -18,4 +18,6 @@ public interface MachineinfoDao {
     int updateByPrimaryKey(Machineinfo record);
     
     List<Machineinfo> queryByCondition();
+    
+    List<String> queryAllDeviceType();
 }

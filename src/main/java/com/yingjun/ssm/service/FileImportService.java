@@ -2,6 +2,7 @@ package com.yingjun.ssm.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 /**
  * 文件导入
@@ -19,15 +20,16 @@ public interface FileImportService {
 	
 	/**
 	 * 导入开卡信息
+	 * 保存机型信息到机型表
 	 * @param file
 	 * @return
 	 */
-	String importCardInfo(List<List<Object>> list);
+	String importCardInfo(List<List<Object>> list) throws ParseException;
 	
 	/**
-	 * 导入交易信息
+	 * 导入交易信息，并补全机型和电话号码信息
 	 * @param file
 	 * @return
 	 */
-	String importTransactionInfo(File file)throws IOException, CloneNotSupportedException;
+	String importTransactionInfo(File file) throws IOException, CloneNotSupportedException;
 }

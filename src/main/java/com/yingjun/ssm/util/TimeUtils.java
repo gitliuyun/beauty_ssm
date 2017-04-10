@@ -1,6 +1,7 @@
 package com.yingjun.ssm.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -19,6 +20,22 @@ public class TimeUtils {
 	public static final SimpleDateFormat DATE_FORMAT_DATE_M = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	public static final SimpleDateFormat DATE_FORMAT_DATE_S = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	public static Date getDateFromString(String s){
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, Integer.parseInt(s.substring(0, 4)));
+		calendar.set(Calendar.MONTH, Integer.parseInt(s.substring(4, 6)));
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(s.substring(6, 8)));
+		calendar.set(Calendar.HOUR, Integer.parseInt(s.substring(8, 10)));
+		calendar.set(Calendar.MINUTE, Integer.parseInt(s.substring(10, 12)));
+		calendar.set(Calendar.SECOND, Integer.parseInt(s.substring(12, 14)));
+		return calendar.getTime();
+	}
+	
+	public static void main(String[] args) {
+		String s = "20160706144418";
+		System.out.println(getDateFromString(s).toLocaleString());
+	}
+	
 	private TimeUtils() {
 		throw new AssertionError();
 	}

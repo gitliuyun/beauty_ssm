@@ -31,13 +31,14 @@
 							<tr class="odd gradeX">
 								<td>${machine.devicetype}</td>
 								<td>${machine.devicecompany}</td>
-								<td>${machine.recordtime}</td>
+								<td><fmt:formatDate value="${machine.recordtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td>${machine.cardnumber}</td>
 								<td>${machine.busnumber}</td>
 								<td>${machine.subwaynumber}</td>
 								<td>${machine.usedinotherindustry}</td>
 								<td>${machine.hascomplain}</td>
 								<td>${machine.isformal}</td>
+								<td><a href="javascript:void(0)">详情</a></td>
 							</tr>
 						</c:forEach>
                     </tbody>

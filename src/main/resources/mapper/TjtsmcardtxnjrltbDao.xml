@@ -39,7 +39,7 @@
     select 
     <include refid="Base_Column_List" />
     from tjtsmcardtxnjrltb
-    where 1=1
+    where 1=1 limit 1000
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tjtsmcardtxnjrltb

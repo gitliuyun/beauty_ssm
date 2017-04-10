@@ -2,20 +2,25 @@ package com.yingjun.ssm.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.yingjun.ssm.dao.BiwhiteardinfotbDao;
 import com.yingjun.ssm.dao.DictshopcodetbDao;
+import com.yingjun.ssm.dao.MachineinfoDao;
 import com.yingjun.ssm.dao.TjtsmcardtxnjrltbDao;
 import com.yingjun.ssm.entity.Biwhiteardinfotb;
 import com.yingjun.ssm.entity.Dictshopcodetb;
+import com.yingjun.ssm.entity.Machineinfo;
 import com.yingjun.ssm.entity.Tjtsmcardtxnjrltb;
 import com.yingjun.ssm.service.FileImportService;
+import com.yingjun.ssm.util.TimeUtils;
 @Service
 public class FileImportServiceImpl implements FileImportService {
 	@Autowired
@@ -27,6 +32,9 @@ public class FileImportServiceImpl implements FileImportService {
 	@Autowired
 	private TjtsmcardtxnjrltbDao tjtsmcardtxnjrltbDao;
 	
+	@Autowired
+	private MachineinfoDao machineinfoDao;
+	
 	@Override
 	public String importShopInfo(List<List<Object>> list) {
 		for (int i = 1; i < list.size(); i++) {
@@ -37,23 +45,39 @@ public class FileImportServiceImpl implements FileImportService {
 			shop.setShopname(row.get(2).toString());
 			dictshopcodetbDao.insert(shop);
 		}
-		return null;
+		return "OK";
 	}
 
 	@Override
-	public String importCardInfo(List<List<Object>> list) {
+	public String importCardInfo(List<List<Object>> list) throws ParseException {
+		List<String> existDeviceTypes =  machineinfoDao.queryAllDeviceType();
+		List<String> existCardNos = biwhiteardinfotbDao.queryAllCardNo();
+		Set<String> deviceSet = new HashSet<>();
 		for (int i = 1; i < list.size(); i++) {
-			Biwhiteardinfotb card = new Biwhiteardinfotb();
 			List<Object> row = list.get(i);
-			card.setCardno(row.get(1).toString());
-			card.setKktype(row.get(5).toString());
-			card.setUnitcode(row.get(6).toString());
-			card.setMobileno(row.get(7).toString());
-			card.setProductcompany(row.get(8).toString());
-			card.setProductmodel(row.get(10).toString());
-			biwhiteardinfotbDao.insert(card);
+			if (!existCardNos.contains(row.get(1).toString())) {
+				Biwhiteardinfotb card = new Biwhiteardinfotb();
+				card.setProductmodel(row.get(10).toString());
+				card.setCardno(row.get(1).toString());
+				//发卡日期
+				card.setRsvd(row.get(4).toString());
+				card.setKktype(row.get(5).toString());
+				card.setUnitcode(row.get(6).toString());
+				card.setMobileno(row.get(7).toString());
+				card.setProductcompany(row.get(8).toString());
+				
+				if (!existDeviceTypes.contains(card.getProductmodel()) && !deviceSet.contains(card.getProductmodel())) {
+					Machineinfo info = new Machineinfo();
+					info.setDevicetype(card.getProductmodel());
+					info.setDevicecompany(card.getProductcompany());
+					info.setRecordtime(TimeUtils.getDateFromString(card.getRsvd()));
+					machineinfoDao.insert(info);
+					deviceSet.add(card.getProductmodel());
+				}
+				biwhiteardinfotbDao.insert(card);
+			}
 		}
-		return null;
+		return "OK";
 	}
 
 	@Override
@@ -69,6 +93,7 @@ public class FileImportServiceImpl implements FileImportService {
 		        break;
 		    }
 		    Integer count = 0;
+		    List<Biwhiteardinfotb> existInfo = biwhiteardinfotbDao.queryAllCardInfo();
 		    while (it.hasNext()) {
 		    	Tjtsmcardtxnjrltb temp = (Tjtsmcardtxnjrltb)tj.clone();
 		        String line = it.nextLine();
@@ -84,13 +109,22 @@ public class FileImportServiceImpl implements FileImportService {
 		        temp.setUnitcode("YD");
 		        temp.setUnitno("YD");
 		        temp.setShopno(line.substring(54, 66));
+		        for (Biwhiteardinfotb info:existInfo) {
+		        	if (info.getCardno().equals(temp.getCardno())) {
+		        		temp.setMobileno(info.getMobileno());
+		        		temp.setProductcompany(info.getProductcompany());
+		        		temp.setProductmodel(info.getProductmodel());
+		        		break;
+		        	}
+		        }
+		        
 		        tjtsmcardtxnjrltbDao.insert(temp);
 		        count ++;
 		    }
 		} finally {
 		    it.close();
 		}
-		return null;
+		return "OK";
 	}
 
 }

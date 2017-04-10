@@ -26,6 +26,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -147,7 +148,7 @@ public class InfoManageController {
      */
     @RequestMapping("springUpload")
     public String  springUpload(HttpServletRequest request, String fileType) throws IllegalStateException, 
-    	IOException, CloneNotSupportedException
+    	IOException, CloneNotSupportedException, ParseException
     {
     	System.out.println(fileType);
         long  startTime = System.currentTimeMillis();

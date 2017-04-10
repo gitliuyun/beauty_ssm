@@ -25,6 +25,10 @@
     where machineInfoId = #{machineinfoid,jdbcType=BIGINT}
   </select>
   
+  <select id="queryAllDeviceType" resultType="java.lang.String">
+    select deviceType from machineinfo
+  </select>
+  
   <select id="queryByCondition" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

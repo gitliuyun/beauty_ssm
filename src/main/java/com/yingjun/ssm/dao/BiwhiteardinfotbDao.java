@@ -18,4 +18,12 @@ public interface BiwhiteardinfotbDao {
     int updateByPrimaryKey(Biwhiteardinfotb record);
     
     List<Biwhiteardinfotb> queryByCondition();
+    
+    /**
+     * 查询所有卡号信息
+     * @return
+     */
+    List<Biwhiteardinfotb> queryAllCardInfo();
+    
+    List<String> queryAllCardNo();
 }

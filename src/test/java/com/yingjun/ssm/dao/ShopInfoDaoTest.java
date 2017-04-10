@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yingjun.ssm.entity.Dictshopcodetb;
 
 /**
  * 
@@ -20,15 +19,12 @@ import com.yingjun.ssm.entity.Dictshopcodetb;
 public class ShopInfoDaoTest {
 
     @Autowired
-    private DictshopcodetbDao dictshopcodetbDao;
+    private BiwhiteardinfotbDao biwhiteardinfotbDao;
 	
 	@Test
 	public void testQueryById() {
-		List<Dictshopcodetb> shops = dictshopcodetbDao.queryByCondition();
-		for (Dictshopcodetb dictshopcodetb : shops) {
-			System.out.println(dictshopcodetb.getShopname());
-		}
-		System.out.println("--------------------------");
+		List<String> existCardNos = biwhiteardinfotbDao.queryAllCardNo();
+		System.out.println(existCardNos);
 	}
 
 }
