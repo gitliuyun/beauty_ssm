@@ -23,8 +23,8 @@
                         <c:forEach var="shop" items="${shopList}">
 							<tr class="odd gradeX">
 								<td>${shop.shopno}</td>
-								<td>${shop.shopname}</td>
-								<td>${shop.rsvd}</td>							
+								<td>${shop.rsvd}</td>
+								<td>${shop.shopname}</td>							
 							</tr>
 						</c:forEach>
                     </tbody>

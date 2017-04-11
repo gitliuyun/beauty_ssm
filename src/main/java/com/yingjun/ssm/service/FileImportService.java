@@ -19,6 +19,13 @@ public interface FileImportService {
 	String importShopInfo(List<List<Object>> list);
 	
 	/**
+	 * 导入单位信息
+	 * @param list
+	 * @return
+	 */
+	String importUnitInfo(List<List<Object>> list);
+	
+	/**
 	 * 导入开卡信息
 	 * 保存机型信息到机型表
 	 * @param file

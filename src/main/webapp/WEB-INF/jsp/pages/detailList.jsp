@@ -7,22 +7,32 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-               单位字典维护
+                白名单列表
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
-                            <th>单位ID</th>
+                            <th>交易类型</th>
+                            <th>行业类型</th>
+                            <th>单位代码</th>
+                            <th>商户代码</th>
                             <th>单位名称</th>
+                            <th>总笔数</th>
+                            <th>总金额</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="dictionary" items="${dictionaryList}">
+                        <c:forEach var="detail" items="${detailList}">
 							<tr class="odd gradeX">
-								<td>${dictionary.unitid}</td>
-								<td>${dictionary.unitname}</td>
+								<td>${detail.transtype}</td>
+								<td>${detail.industrycode}</td>
+								<td>${detail.unitid}</td>
+								<td>${detail.shopno}</td>
+								<td>${detail.unitName}</td>
+								<td>${detail.totalnum}</td>
+								<td>${detail.totalsum}</td>
 							</tr>
 						</c:forEach>
                     </tbody>

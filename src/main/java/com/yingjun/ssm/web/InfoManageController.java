@@ -10,8 +10,11 @@ import com.yingjun.ssm.entity.Dictbmacunitcodetb;
 import com.yingjun.ssm.entity.Dictshopcodetb;
 import com.yingjun.ssm.entity.Machineinfo;
 import com.yingjun.ssm.entity.Tjtsmcardtxnjrltb;
+import com.yingjun.ssm.entity.WhiteListSummary;
 import com.yingjun.ssm.service.FileImportService;
+import com.yingjun.ssm.service.TransactionAnalyzeService;
 import com.yingjun.ssm.util.FileReadUtil;
+import com.yingjun.ssm.util.VOTransferUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +59,9 @@ public class InfoManageController {
     @Autowired
     private FileImportService fileImportService;
     
+    @Autowired
+    private TransactionAnalyzeService transactionAnalyzeService;
+    
     /**
      * 商户信息
      * @param model
@@ -67,6 +73,14 @@ public class InfoManageController {
         List<Dictshopcodetb> list = dictshopcodetbDao.queryByCondition();
         model.addAttribute("shopList", list);
         return "shopList";
+    }
+    
+    @RequestMapping(value = "/detailList", method = RequestMethod.POST)
+    public String detailList(Model model, String deviceType) {
+        LOG.info("invoke----------/infoManage/detailList");
+        List<WhiteListSummary> detailList =  tjtsmcardtxnjrltbDao.getDeviceDetail(deviceType);
+        model.addAttribute("detailList", VOTransferUtil.transferVOForShow(detailList));
+        return "detailList";
     }
     
     /**
@@ -122,12 +136,60 @@ public class InfoManageController {
     }
     
     /**
+     * 分析机型使用情况
+     * @param model
+     * @param deviceType
+     * @return
+     */
+    @RequestMapping(value = "/analyze", method = RequestMethod.POST)
+    public String analyze(Model model, String deviceType) {
+        LOG.info("invoke----------/infoManage/analyze");
+        transactionAnalyzeService.analyzeMachine(deviceType);
+    	return "machineList";
+    }
+    
+    @RequestMapping(value = "/analyzeAll", method = RequestMethod.POST)
+    public String analyzeAll(Model model) {
+        LOG.info("invoke----------/infoManage/analyze");
+        transactionAnalyzeService.analyzeMachineAll();
+    	return "machineList";
+    }
+    
+    /**
      * 饼图
      * @param model
      * @return
      */
     @RequestMapping(value = "/pieChart", method = RequestMethod.POST)
     public String pieChart(Model model) {
+    	/*[{
+            label: "苹果",
+            data: 30
+        }, {
+            label: "三星",
+            data: 30
+        }, {
+            label: "华为",
+            data: 20
+        }, {
+            label: "小米",
+            data: 15
+        }, {
+            label: "其他",
+            data: 5
+        }
+        ];*/
+    	
+    	List<Machineinfo> info = machineinfoDao.countCardNumberOfMachine();
+    	Integer total = machineinfoDao.countTotalCardNumber();
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("[");
+    	for (Machineinfo mf:info) {
+    		//sb.append("{label:" +  + "}");
+    	}
+    	
+    	sb.append("]");
+    	
     	LOG.info("invoke----------/infoManage/pieChart");
     	return "pieChart";
     }
@@ -180,6 +242,10 @@ public class InfoManageController {
 					case "shop":
 						list = FileReadUtil.readFile(file);
 						fileImportService.importShopInfo(list);
+						break;
+					case "unit":
+						list = FileReadUtil.readFile(file);
+						fileImportService.importUnitInfo(list);
 						break;
 					case "transaction":
 						fileImportService.importTransactionInfo(file);

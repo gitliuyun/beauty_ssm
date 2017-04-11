@@ -24,14 +24,23 @@
 	                    <form role="form" name="Form2" action="<%=path%>/infoManage/springUpload" 
 	                    	method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">
+	                            <label>单位信息导入</label>
+	                            <input type="file" name="file">
+	                            <input type="hidden" name="fileType" value="unit">
+								<input type="submit" value="导入"/>
+	                        </div>
+	                    </form>
+	                </div>
+                	<div class="col-lg-6">
+                		<form role="form" name="Form2" action="<%=path%>/infoManage/springUpload" 
+	                    	method="post"  enctype="multipart/form-data">
+	                        <div class="form-group">
 	                            <label>交易信息导入</label>
 	                            <input type="file" name="file">
 	                            <input type="hidden" name="fileType" value="transaction">
 								<input type="submit" value="导入"/>
 	                        </div>
 	                    </form>
-	                </div>
-                	<div class="col-lg-6">
 	                    <form role="form" name="Form2" action="<%=path%>/infoManage/springUpload" 
 	                    	method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">

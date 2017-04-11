@@ -19,5 +19,11 @@ public interface MachineinfoDao {
     
     List<Machineinfo> queryByCondition();
     
+    Machineinfo queryByMachineType(String deviceType);
+    
     List<String> queryAllDeviceType();
+    
+    List<Machineinfo> countCardNumberOfMachine();
+    
+    Integer countTotalCardNumber();
 }

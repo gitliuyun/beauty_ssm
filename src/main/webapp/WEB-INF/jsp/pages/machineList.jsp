@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                白名单列表
+                白名单列表  <button onclick="analyzeAll()">分析所有机型</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -18,8 +18,8 @@
                             <th>厂商</th>
                             <th>登记时间</th>
                             <th>开卡数量</th>
-                            <th>公交</th>
-                            <th>地铁</th>
+                            <th>公交数量</th>
+                            <th>地铁数量</th>
                             <th>其他行业是否使用</th>
                             <th>客户投诉</th>
                             <th>是否正式</th>
@@ -38,7 +38,9 @@
 								<td>${machine.usedinotherindustry}</td>
 								<td>${machine.hascomplain}</td>
 								<td>${machine.isformal}</td>
-								<td><a href="javascript:void(0)">详情</a></td>
+								<td><a href="javascript:void(0)" onclick="showDetail('${machine.devicetype}')">详情</a>
+								<a href="javascript:void(0)" onclick="analyze('${machine.devicetype}')">分析</a>
+								</td>
 							</tr>
 						</c:forEach>
                     </tbody>
@@ -52,9 +54,34 @@
     <!-- /.col-lg-12 -->
 </div>
 <script>
+    function showDetail(deviceType){
+    	var url = "<%=basePath%>/infoManage/detailList";
+    	var param = {"deviceType":deviceType};
+    	$.post(url, param, function(data){
+    		$("#page-content").html(data);
+    	});
+    }
+    
+    function analyze(deviceType){
+    	var url = "<%=basePath%>/infoManage/analyze";
+    	var param = {"deviceType":deviceType};
+    	$.post(url, param, function(){
+   			jumpByAjax('/infoManage/machineList');
+    	});
+    }
+    
+    function analyzeAll(){
+    	var url = "<%=basePath%>/infoManage/analyzeAll";
+    	var param = {};
+    	$.post(url, param, function(){
+   			jumpByAjax('/infoManage/machineList');
+    	});
+    }
+    
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
         });
     });
+    
 </script>

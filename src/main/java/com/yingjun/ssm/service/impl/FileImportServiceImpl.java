@@ -12,10 +12,12 @@ import org.apache.commons.io.LineIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.yingjun.ssm.dao.BiwhiteardinfotbDao;
+import com.yingjun.ssm.dao.DictbmacunitcodetbDao;
 import com.yingjun.ssm.dao.DictshopcodetbDao;
 import com.yingjun.ssm.dao.MachineinfoDao;
 import com.yingjun.ssm.dao.TjtsmcardtxnjrltbDao;
 import com.yingjun.ssm.entity.Biwhiteardinfotb;
+import com.yingjun.ssm.entity.Dictbmacunitcodetb;
 import com.yingjun.ssm.entity.Dictshopcodetb;
 import com.yingjun.ssm.entity.Machineinfo;
 import com.yingjun.ssm.entity.Tjtsmcardtxnjrltb;
@@ -25,6 +27,9 @@ import com.yingjun.ssm.util.TimeUtils;
 public class FileImportServiceImpl implements FileImportService {
 	@Autowired
 	private DictshopcodetbDao dictshopcodetbDao;
+	
+	@Autowired
+	private DictbmacunitcodetbDao dictbmacunitcodetbDao;
 	
 	@Autowired
 	private BiwhiteardinfotbDao biwhiteardinfotbDao;
@@ -41,9 +46,21 @@ public class FileImportServiceImpl implements FileImportService {
 			Dictshopcodetb shop = new Dictshopcodetb();
 			List<Object> row = list.get(i);
 			shop.setShopno(row.get(0).toString());
-			shop.setRsvd(row.get(1).toString());
+			shop.setRsvd(row.get(1).toString().substring(0, 8));
 			shop.setShopname(row.get(2).toString());
 			dictshopcodetbDao.insert(shop);
+		}
+		return "OK";
+	}
+	
+	@Override
+	public String importUnitInfo(List<List<Object>> list) {
+		for (int i = 1; i < list.size(); i++) {
+			Dictbmacunitcodetb dic = new Dictbmacunitcodetb();
+			List<Object> row = list.get(i);
+			dic.setUnitid(row.get(0).toString().substring(0, 8));
+			dic.setUnitname(row.get(1).toString());
+			dictbmacunitcodetbDao.insert(dic);
 		}
 		return "OK";
 	}
@@ -126,5 +143,4 @@ public class FileImportServiceImpl implements FileImportService {
 		}
 		return "OK";
 	}
-
 }

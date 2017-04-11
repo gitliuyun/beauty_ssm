@@ -3,6 +3,7 @@ package com.yingjun.ssm.dao;
 import java.util.List;
 
 import com.yingjun.ssm.entity.Tjtsmcardtxnjrltb;
+import com.yingjun.ssm.entity.WhiteListSummary;
 
 public interface TjtsmcardtxnjrltbDao {
     int deleteByPrimaryKey(Long tjtsmcardtxnjrltbId);
@@ -18,4 +19,26 @@ public interface TjtsmcardtxnjrltbDao {
     int updateByPrimaryKey(Tjtsmcardtxnjrltb record);
     
     List<Tjtsmcardtxnjrltb> queryByCondition();
+    
+    /**
+     * 查询某种机型开卡数量
+     * @param machineType
+     * @return
+     */
+    int countOpenCardNo(String machineType);
+    
+    /**
+     * 查询在用公交/地铁条数
+     * @param machineType
+     * @param industryNo
+     * @return
+     */
+    int countIndustryNo(String machineType, String industryNo);
+    
+    /**
+     * 获取机型详情
+     * @param deviceType
+     * @return
+     */
+    List<WhiteListSummary> getDeviceDetail(String deviceType);
 }

@@ -135,7 +135,7 @@
 	    });
 	    
 	    function jumpByAjax(url){
-	    	url = "http://localhost:8080/" + "<%=path%>" + url;
+	    	url = "<%=basePath%>" + url;
 	    	$.post(url,{},function(data){
 	    		$("#page-content").html(data);
 	    	});

@@ -3,6 +3,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!-- Bootstrap Core CSS -->
 <link href="<%=path%>/resource/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

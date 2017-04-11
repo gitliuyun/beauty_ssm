@@ -25,16 +25,34 @@
     where machineInfoId = #{machineinfoid,jdbcType=BIGINT}
   </select>
   
+  <select id="countCardNumberOfMachine" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from machineinfo ORDER BY cardNumber desc LIMIT 10
+  </select>
+  
+  <select id="countTotalCardNumber" resultType="java.lang.Integer">
+    select sum(cardNumber) from machineinfo;
+  </select>
+  
   <select id="queryAllDeviceType" resultType="java.lang.String">
     select deviceType from machineinfo
   </select>
   
-  <select id="queryByCondition" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="queryByCondition" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from machineinfo
     where 1=1
   </select>
+  
+  <select id="queryByMachineType"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from machineinfo
+    where deviceType = #{deviceType} limit 1
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from machineinfo
     where machineInfoId = #{machineinfoid,jdbcType=BIGINT}

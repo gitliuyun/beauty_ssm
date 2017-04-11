@@ -41,6 +41,45 @@
     from tjtsmcardtxnjrltb
     where 1=1 limit 1000
   </select>
+  
+  <select id="countOpenCardNo" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(DISTINCT cardno) from tjtsmcardtxnjrltb where productmodel = #{machineType,jdbcType=VARCHAR};
+  </select>
+  
+  <select id="countIndustryNo" resultType="java.lang.Integer">
+    select count(DISTINCT unitid) from tjtsmcardtxnjrltb where productmodel = #{0} and industrycode = #{1} and transtype = 1;
+  </select>
+  
+  <select id="getDeviceDetail" resultType="com.yingjun.ssm.entity.WhiteListSummary">
+	   SELECT
+			smy.transtype,
+			smy.industrycode,
+			smy.unitid,
+			smy.shopno,
+			smy.totalnum,
+			smy.totalsum,
+			IFNULL(sp.shopname, mac.unitname) AS unitName
+		FROM
+			(
+				SELECT
+					transtype,
+					industrycode,
+					unitid,
+					shopno,
+					SUM(totalnum) AS totalnum,
+					SUM(totalsum) AS totalsum
+				FROM
+					tjtsmcardtxnjrltb
+				WHERE
+					productmodel = #{deviceType} and (transtype = 1 or transtype = 2)
+				GROUP BY
+					unitid,
+					shopno
+			) smy
+		LEFT JOIN dictshopcodetb sp ON smy.shopno = sp.shopno
+		LEFT JOIN dictbmacunitcodetb mac ON smy.unitid = mac.unitid
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tjtsmcardtxnjrltb
     where tjtsmcardtxnjrltb_id = #{tjtsmcardtxnjrltbId,jdbcType=BIGINT}
