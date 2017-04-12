@@ -58,7 +58,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="javascript:void(0)" onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -100,7 +100,7 @@
                                     <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/machineList')">机型列表</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" onclick="jumpByAjax('/infoManage/pieChart')">机型使用情况统计</a>
+                                    <a id="firstPage" href="javascript:void(0)" onclick="jumpByAjax('/infoManage/pieChart')">机型使用情况统计</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -138,6 +138,17 @@
 	    	url = "<%=basePath%>" + url;
 	    	$.post(url,{},function(data){
 	    		$("#page-content").html(data);
+	    	});
+	    }
+	    
+	    $(function(){
+	    	$("#firstPage").click();
+	    })
+	    
+	    function logout(){
+	    	var url = "<%=path%>/user/logout";
+	    	$.post(url,{},function(){
+	    		window.location.href="<%=path%>/login.jsp";
 	    	});
 	    }
     </script>

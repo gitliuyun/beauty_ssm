@@ -162,24 +162,6 @@ public class InfoManageController {
      */
     @RequestMapping(value = "/pieChart", method = RequestMethod.POST)
     public String pieChart(Model model) {
-    	/*[{
-            label: "苹果",
-            data: 30
-        }, {
-            label: "三星",
-            data: 30
-        }, {
-            label: "华为",
-            data: 20
-        }, {
-            label: "小米",
-            data: 15
-        }, {
-            label: "其他",
-            data: 5
-        }
-        ];*/
-    	
     	List<Machineinfo> info = machineinfoDao.countCardNumberOfMachine();
     	Integer total = machineinfoDao.countTotalCardNumber();
     	Integer topTen = 0;

@@ -1,5 +1,8 @@
 package com.yingjun.ssm.web;
 
+import com.yingjun.ssm.dao.MngusertbDao;
+import com.yingjun.ssm.dao.UserDao;
+import com.yingjun.ssm.entity.Mngusertb;
 import com.yingjun.ssm.entity.User;
 import com.yingjun.ssm.service.UserService;
 import org.slf4j.Logger;
@@ -10,7 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/user")
@@ -20,6 +29,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MngusertbDao mngusertbDao;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, Integer offset, Integer limit) {
@@ -35,6 +47,29 @@ public class UserController {
 	public String index(Model model) {
 		LOG.info("invoke----------/user/index");
 		return "index";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(Model model, HttpServletRequest request, HttpServletResponse response, String userName, String password)
+			throws ServletException, IOException {
+		LOG.info("invoke----------/user/login");
+		int userNo = mngusertbDao.queryByUserName(userName, password);
+		if (userNo > 0) {
+			Mngusertb user = new Mngusertb();
+			user.setUsername(userName);
+			user.setPassword(password);
+			request.getSession().setAttribute("loginedUser",user);
+			return "index";
+		} else {
+			return "redirect:/login.jsp";
+		}
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String logout(Model model, HttpServletRequest request) {
+		LOG.info("invoke----------/user/logout");
+		request.getSession().removeAttribute("loginedUser");
+		return "redirect:/login.jsp";
 	}
 	
 	@RequestMapping(value = "/tables", method = RequestMethod.POST)

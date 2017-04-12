@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                商户信息导入
+                商户信息导入 <a href="javascript:void(0)" onclick="window.location.href= '<%=basePath%>/user/index'" style="float: right">返回</a>
             </div>
             <div class="panel-body">
 	            <div class="row">

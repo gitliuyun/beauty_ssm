@@ -14,4 +14,6 @@ public interface MngusertbDao {
     int updateByPrimaryKeySelective(Mngusertb record);
 
     int updateByPrimaryKey(Mngusertb record);
+    
+    int queryByUserName(String userName, String password);
 }

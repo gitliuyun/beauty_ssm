@@ -20,6 +20,11 @@
     from mngusertb
     where mngusertb_id = #{mngusertbId,jdbcType=BIGINT}
   </select>
+  
+  <select id="queryByUserName" resultType="java.lang.Integer">
+  	select count(0) from mngusertb where username= #{0} and password=#{1}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from mngusertb
     where mngusertb_id = #{mngusertbId,jdbcType=BIGINT}
