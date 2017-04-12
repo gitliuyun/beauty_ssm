@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                机型使用百分比
+                机型发卡量百分比
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -22,6 +22,32 @@
     </div>
     <!-- /.col-lg-6 -->
 </div>
+<script>
+//Flot Pie Chart
+$(function() {
+    var data = ${percentData};
+    var plotObj = $.plot($("#flot-pie-chart"), data, {
+        series: {
+            pie: {
+                show: true
+            }
+        },
+        grid: {
+            hoverable: true
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+            shifts: {
+                x: 20,
+                y: 0
+            },
+            defaultTheme: false
+        }
+    });
+
+});
+</script>
 <script src="<%=path%>/resource/vendor/flot/excanvas.min.js"></script>
 <script src="<%=path%>/resource/vendor/flot/jquery.flot.js"></script>
 <script src="<%=path%>/resource/vendor/flot/jquery.flot.pie.js"></script>
@@ -29,10 +55,4 @@
 <script src="<%=path%>/resource/vendor/flot/jquery.flot.time.js"></script>
 <script src="<%=path%>/resource/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
 <script src="<%=path%>/resource/data/flot-data.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-</script>
+

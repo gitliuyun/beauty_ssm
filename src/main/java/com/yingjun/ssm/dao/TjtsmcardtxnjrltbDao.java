@@ -41,4 +41,10 @@ public interface TjtsmcardtxnjrltbDao {
      * @return
      */
     List<WhiteListSummary> getDeviceDetail(String deviceType);
+    
+    /**
+     * 查询已经导入的文件名称列表
+     * @return
+     */
+    List<String> queryExistFileIds();
 }

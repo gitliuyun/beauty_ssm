@@ -182,14 +182,25 @@ public class InfoManageController {
     	
     	List<Machineinfo> info = machineinfoDao.countCardNumberOfMachine();
     	Integer total = machineinfoDao.countTotalCardNumber();
+    	Integer topTen = 0;
     	StringBuffer sb = new StringBuffer();
     	sb.append("[");
     	for (Machineinfo mf:info) {
-    		//sb.append("{label:" +  + "}");
+    		sb.append("{label:'");
+    		sb.append(mf.getDevicetype());
+    		sb.append("',data:'");
+    		sb.append(mf.getCardnumber() * 1.0 / total);
+    		topTen += mf.getCardnumber();
+    		sb.append("'},");
     	}
-    	
+    	/*if (sb.toString().endsWith(",")) {
+    		sb = new StringBuffer(sb.substring(0, sb.length() - 1));
+    	}*/
+    	sb.append("{label: \"其他\",data:");
+    	sb.append((total - topTen) * 1.0 / total);
+    	sb.append("}");
     	sb.append("]");
-    	
+    	model.addAttribute("percentData", sb.toString());
     	LOG.info("invoke----------/infoManage/pieChart");
     	return "pieChart";
     }

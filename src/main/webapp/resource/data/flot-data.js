@@ -49,49 +49,6 @@ $(document).ready(function() {
     }
 });
 
-//Flot Pie Chart
-$(function() {
-
-    var data = [{
-        label: "苹果",
-        data: 30
-    }, {
-        label: "三星",
-        data: 30
-    }, {
-        label: "华为",
-        data: 20
-    }, {
-        label: "小米",
-        data: 15
-    }, {
-        label: "其他",
-        data: 5
-    }
-    ];
-
-    var plotObj = $.plot($("#flot-pie-chart"), data, {
-        series: {
-            pie: {
-                show: true
-            }
-        },
-        grid: {
-            hoverable: true
-        },
-        tooltip: true,
-        tooltipOpts: {
-            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-            shifts: {
-                x: 20,
-                y: 0
-            },
-            defaultTheme: false
-        }
-    });
-
-});
-
 //Flot Multiple Axes Line Chart
 $(function() {
     var oilprices = [

@@ -42,6 +42,10 @@
     where 1=1 limit 1000
   </select>
   
+  <select id="queryExistFileIds" resultType="java.lang.String">
+  	select DISTINCT fileid from tjtsmcardtxnjrltb;
+  </select>
+  
   <select id="countOpenCardNo" parameterType="java.lang.String" resultType="java.lang.Integer">
     select count(DISTINCT cardno) from tjtsmcardtxnjrltb where productmodel = #{machineType,jdbcType=VARCHAR};
   </select>

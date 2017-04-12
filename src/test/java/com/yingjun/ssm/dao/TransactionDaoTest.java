@@ -1,5 +1,7 @@
 package com.yingjun.ssm.dao;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,12 @@ import com.yingjun.ssm.service.TransactionAnalyzeService;
 @ContextConfiguration("classpath:spring/spring-dao.xml")
 public class TransactionDaoTest {
     @Autowired
-	private TransactionAnalyzeService transactionAnalyzeService;
+	private TjtsmcardtxnjrltbDao tjtsmcardtxnjrltbDao;
 	
 	@Test
 	public void testQueryById() {
-		transactionAnalyzeService.analyzeMachine("GT-I9508");
-		System.out.println("ss");
+		List<String> fileList = tjtsmcardtxnjrltbDao.queryExistFileIds();
+		System.out.println(fileList);
 	}
 
 }

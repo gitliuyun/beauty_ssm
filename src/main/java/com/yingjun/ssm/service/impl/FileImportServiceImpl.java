@@ -99,6 +99,10 @@ public class FileImportServiceImpl implements FileImportService {
 
 	@Override
 	public String importTransactionInfo(File file) throws IOException, CloneNotSupportedException {
+		List<String> existFileIds = tjtsmcardtxnjrltbDao.queryExistFileIds();
+		if (existFileIds.contains(file.getName())) {
+			return "OK";
+		}
 		Tjtsmcardtxnjrltb tj = new Tjtsmcardtxnjrltb();
 		tj.setFileid(file.getName());
 		LineIterator it = FileUtils.lineIterator(file, "UTF-8");
