@@ -59,7 +59,7 @@
                                     </label>
                                 </div> -->
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="javascript:void(0)" onclick="$('#loginForm').submit();" class="btn btn-lg btn-success btn-block">Login</a>
+                                <a id="loginButton" href="javascript:void(0)" onclick="$('#loginForm').submit();" class="btn btn-lg btn-success btn-block">Login</a>
                             </fieldset>
                         </form>
                     </div>
@@ -81,6 +81,10 @@
     <!-- Custom Theme JavaScript -->
     <script src="<%=path%>/resource/dist/js/sb-admin-2.js"></script>
 <script>
-    
+   	$(document).keydown(function(event){ 
+   		if(event.keyCode == 13){ //绑定回车 
+	   		$('#loginButton').click();
+	   	} 
+   	}); 
 </script>
 </html>
