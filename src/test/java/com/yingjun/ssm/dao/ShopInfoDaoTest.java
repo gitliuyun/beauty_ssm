@@ -7,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-
 /**
  * 
  * @author yingjun
@@ -19,11 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ShopInfoDaoTest {
 
     @Autowired
-    private BiwhiteardinfotbDao biwhiteardinfotbDao;
+    private DictbmacunitcodetbDao dictbmacunitcodetbDao;
 	
 	@Test
 	public void testQueryById() {
-		List<String> existCardNos = biwhiteardinfotbDao.queryAllCardNo();
+		List<String> existCardNos = dictbmacunitcodetbDao.queryExistUnitId();
 		System.out.println(existCardNos);
 	}
 

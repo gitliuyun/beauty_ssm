@@ -17,6 +17,10 @@
     where dictshopcodetb_id = #{dictshopcodetbId,jdbcType=BIGINT}
   </select>
   
+  <select id="queryExistShopNo" resultType="java.lang.String">
+  	select shopno from dictshopcodetb
+  </select>
+  
   <select id="queryByCondition" parameterType="Map" resultMap="BaseResultMap">
   	select 
     <include refid="Base_Column_List" />

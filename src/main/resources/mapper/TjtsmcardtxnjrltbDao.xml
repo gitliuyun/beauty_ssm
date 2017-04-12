@@ -36,10 +36,7 @@
     where tjtsmcardtxnjrltb_id = #{tjtsmcardtxnjrltbId,jdbcType=BIGINT}
   </select>
   <select id="queryByCondition" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tjtsmcardtxnjrltb
-    where 1=1 limit 1000
+    SELECT fileid, birthdate, sum(totalnum) as totalnum, SUM(totalsum) as totalsum FROM tjtsmcardtxnjrltb GROUP BY fileid;
   </select>
   
   <select id="queryExistFileIds" resultType="java.lang.String">

@@ -18,4 +18,9 @@ public interface DictbmacunitcodetbDao {
     int updateByPrimaryKey(Dictbmacunitcodetb record);
     
     List<Dictbmacunitcodetb> queryByCondition();
+    /**
+     * 查询已经存在的单位代码
+     * @return
+     */
+    List<String> queryExistUnitId();
 }

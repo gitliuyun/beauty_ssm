@@ -18,4 +18,6 @@ public interface DictshopcodetbDao {
     int updateByPrimaryKeySelective(Dictshopcodetb record);
 
     int updateByPrimaryKey(Dictshopcodetb record);
+    
+    List<String> queryExistShopNo();
 }

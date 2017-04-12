@@ -16,6 +16,11 @@
     from dictbmacunitcodetb
     where dictbmacunitcodetb_id = #{dictbmacunitcodetbId,jdbcType=BIGINT}
   </select>
+  
+  <select id="queryExistUnitId" resultType="java.lang.String">
+  	SELECT unitid FROM dictbmacunitcodetb;
+  </select>
+  
   <select id="queryByCondition" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

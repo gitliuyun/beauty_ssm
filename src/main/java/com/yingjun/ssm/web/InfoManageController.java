@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Null;
 
 @Controller
 @RequestMapping("/infoManage")
@@ -164,10 +165,16 @@ public class InfoManageController {
     public String pieChart(Model model) {
     	List<Machineinfo> info = machineinfoDao.countCardNumberOfMachine();
     	Integer total = machineinfoDao.countTotalCardNumber();
+    	if (total == null) {
+    		total = 0;
+    	}
     	Integer topTen = 0;
     	StringBuffer sb = new StringBuffer();
     	sb.append("[");
     	for (Machineinfo mf:info) {
+    		if (mf.getCardnumber() == null) {
+    			continue;
+    		}
     		sb.append("{label:'");
     		sb.append(mf.getDevicetype());
     		sb.append("',data:'");

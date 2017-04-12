@@ -42,25 +42,32 @@ public class FileImportServiceImpl implements FileImportService {
 	
 	@Override
 	public String importShopInfo(List<List<Object>> list) {
+		List<String> shopList = dictshopcodetbDao.queryExistShopNo();
 		for (int i = 1; i < list.size(); i++) {
-			Dictshopcodetb shop = new Dictshopcodetb();
 			List<Object> row = list.get(i);
-			shop.setShopno(row.get(0).toString());
-			shop.setRsvd(row.get(1).toString().substring(0, 8));
-			shop.setShopname(row.get(2).toString());
-			dictshopcodetbDao.insert(shop);
+			if (!shopList.contains(row.get(0).toString())) {
+				Dictshopcodetb shop = new Dictshopcodetb();
+				shop.setShopno(row.get(0).toString());
+				shop.setRsvd(row.get(1).toString().substring(0, 8));
+				shop.setShopname(row.get(2).toString());
+				dictshopcodetbDao.insert(shop);
+			}
 		}
 		return "OK";
 	}
 	
 	@Override
 	public String importUnitInfo(List<List<Object>> list) {
+		List<String> existUnitIds = dictbmacunitcodetbDao.queryExistUnitId();
 		for (int i = 1; i < list.size(); i++) {
-			Dictbmacunitcodetb dic = new Dictbmacunitcodetb();
 			List<Object> row = list.get(i);
-			dic.setUnitid(row.get(0).toString().substring(0, 8));
-			dic.setUnitname(row.get(1).toString());
-			dictbmacunitcodetbDao.insert(dic);
+			String unitId = row.get(0).toString().substring(0, 8);
+			if (!existUnitIds.contains(unitId)) {
+				Dictbmacunitcodetb dic = new Dictbmacunitcodetb();
+				dic.setUnitid(unitId);
+				dic.setUnitname(row.get(1).toString());
+				dictbmacunitcodetbDao.insert(dic);
+			}
 		}
 		return "OK";
 	}
@@ -73,8 +80,9 @@ public class FileImportServiceImpl implements FileImportService {
 		for (int i = 1; i < list.size(); i++) {
 			List<Object> row = list.get(i);
 			if (!existCardNos.contains(row.get(1).toString())) {
+				String productModal = row.get(10).toString().toUpperCase();
 				Biwhiteardinfotb card = new Biwhiteardinfotb();
-				card.setProductmodel(row.get(10).toString());
+				card.setProductmodel(productModal);
 				card.setCardno(row.get(1).toString());
 				//发卡日期
 				card.setRsvd(row.get(4).toString());
@@ -83,13 +91,13 @@ public class FileImportServiceImpl implements FileImportService {
 				card.setMobileno(row.get(7).toString());
 				card.setProductcompany(row.get(8).toString());
 				
-				if (!existDeviceTypes.contains(card.getProductmodel()) && !deviceSet.contains(card.getProductmodel())) {
+				if (!existDeviceTypes.contains(productModal) && !deviceSet.contains(productModal)) {
 					Machineinfo info = new Machineinfo();
-					info.setDevicetype(card.getProductmodel());
+					info.setDevicetype(productModal);
 					info.setDevicecompany(card.getProductcompany());
 					info.setRecordtime(TimeUtils.getDateFromString(card.getRsvd()));
 					machineinfoDao.insert(info);
-					deviceSet.add(card.getProductmodel());
+					deviceSet.add(productModal);
 				}
 				biwhiteardinfotbDao.insert(card);
 			}
