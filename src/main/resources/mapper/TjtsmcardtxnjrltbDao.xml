@@ -103,6 +103,30 @@
       #{productcompany,jdbcType=VARCHAR}, #{productmodel,jdbcType=VARCHAR}, #{rsvd,jdbcType=VARCHAR}
       )
   </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List">
+       insert into tjtsmcardtxnjrltb (tjtsmcardtxnjrltb_id, fileid, fileno, 
+      unitno, filever, birthdate, 
+      cardno, cardtype, transdate, 
+      transtype, totalnum, totalsum, 
+      industrycode, unitid, shopno, 
+      kktype, unitcode, mobileno, 
+      productcompany, productmodel, rsvd
+      ) values
+       <foreach collection="list" item="item" index="index"
+           separator=",">
+           (#{item.tjtsmcardtxnjrltbId,jdbcType=BIGINT}, #{item.fileid,jdbcType=VARCHAR}, #{item.fileno,jdbcType=VARCHAR}, 
+	      #{item.unitno,jdbcType=VARCHAR}, #{item.filever,jdbcType=VARCHAR}, #{item.birthdate,jdbcType=VARCHAR}, 
+	      #{item.cardno,jdbcType=VARCHAR}, #{item.cardtype,jdbcType=VARCHAR}, #{item.transdate,jdbcType=VARCHAR}, 
+	      #{item.transtype,jdbcType=VARCHAR}, #{item.totalnum,jdbcType=INTEGER}, #{item.totalsum,jdbcType=INTEGER}, 
+	      #{item.industrycode,jdbcType=VARCHAR}, #{item.unitid,jdbcType=VARCHAR}, #{item.shopno,jdbcType=VARCHAR}, 
+	      #{item.kktype,jdbcType=VARCHAR}, #{item.unitcode,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
+	      #{item.productcompany,jdbcType=VARCHAR}, #{item.productmodel,jdbcType=VARCHAR}, #{item.rsvd,jdbcType=VARCHAR}
+	      )
+       </foreach>
+	</insert>
+  
+  
   <insert id="insertSelective" parameterType="com.yingjun.ssm.entity.Tjtsmcardtxnjrltb">
     insert into tjtsmcardtxnjrltb
     <trim prefix="(" suffix=")" suffixOverrides=",">

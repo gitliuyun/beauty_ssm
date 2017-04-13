@@ -9,6 +9,8 @@ public interface TjtsmcardtxnjrltbDao {
     int deleteByPrimaryKey(Long tjtsmcardtxnjrltbId);
 
     int insert(Tjtsmcardtxnjrltb record);
+    
+    int batchInsert(List<Tjtsmcardtxnjrltb> list);
 
     int insertSelective(Tjtsmcardtxnjrltb record);
 

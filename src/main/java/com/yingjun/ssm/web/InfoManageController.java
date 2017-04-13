@@ -224,10 +224,6 @@ public class InfoManageController {
         {
         	//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
         	String savePath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload");
-            //将request变成多部分request
-            //MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-            //获取multiRequest 中所有的文件名
-            //Iterator iter = multiRequest.getFileNames();
         	for (MultipartFile multipartFile : files) {
         		if(multipartFile != null)
                 {

@@ -3,6 +3,7 @@ package com.yingjun.ssm.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,6 +124,7 @@ public class FileImportServiceImpl implements FileImportService {
 		    }
 		    Integer count = 0;
 		    List<Biwhiteardinfotb> existInfo = biwhiteardinfotbDao.queryAllCardInfo();
+		    List<Tjtsmcardtxnjrltb> insertList = new ArrayList<>();
 		    while (it.hasNext()) {
 		    	Tjtsmcardtxnjrltb temp = (Tjtsmcardtxnjrltb)tj.clone();
 		        String line = it.nextLine();
@@ -146,9 +148,15 @@ public class FileImportServiceImpl implements FileImportService {
 		        		break;
 		        	}
 		        }
-		        
-		        tjtsmcardtxnjrltbDao.insert(temp);
+		        insertList.add(temp);
 		        count ++;
+		        if (count == 1000) {
+		        	tjtsmcardtxnjrltbDao.batchInsert(insertList);
+		        	insertList.clear();
+		        }
+		    }
+		    if (!insertList.isEmpty()) {
+		    	tjtsmcardtxnjrltbDao.batchInsert(insertList);
 		    }
 		} finally {
 		    it.close();
