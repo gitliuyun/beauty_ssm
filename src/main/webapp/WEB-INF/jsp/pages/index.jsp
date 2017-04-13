@@ -102,6 +102,9 @@
                                 <li>
                                     <a id="firstPage" href="javascript:void(0)" onclick="jumpByAjax('/infoManage/pieChart')">机型使用情况统计</a>
                                 </li>
+                                <li>
+                                    <a href="javascript:void(0)" onclick="window.location.href='<%=basePath%>/druid/sql.html'">sql监控</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

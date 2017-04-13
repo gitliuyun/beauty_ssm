@@ -21,7 +21,6 @@ public class LoginFilter extends OncePerRequestFilter {
 
 		// 请求的uri
 		String uri = request.getRequestURI();
-
 		// uri中包含background时才进行过滤
 		// 是否过滤
 		boolean doFilter = true;
@@ -32,7 +31,7 @@ public class LoginFilter extends OncePerRequestFilter {
 				break;
 			}
 		}
-		
+		//放行css和js请求
 		if (uri != null) {
 			String extention = uri.substring(uri.lastIndexOf(".") + 1);
 			if ("css".equals(extention) || "js".equals(extention) || "map".equals(extention)) {
@@ -48,6 +47,12 @@ public class LoginFilter extends OncePerRequestFilter {
 			if (null == obj) {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			} else {
+				String servletPath = request.getServletPath();
+				if ("/".equals(servletPath)) {
+					String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";  
+					response.sendRedirect(basePath + "/user/index");
+					return;
+				}
 				// 如果session中存在登录者实体，则继续
 				filterChain.doFilter(request, response);
 			}

@@ -39,6 +39,19 @@
     SELECT fileid, birthdate, sum(totalnum) as totalnum, SUM(totalsum) as totalsum FROM tjtsmcardtxnjrltb GROUP BY fileid;
   </select>
   
+  <select id="queryByFileIdGroup" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT fileid, birthdate, sum(totalnum) as totalnum, SUM(totalsum) as totalsum FROM tjtsmcardtxnjrltb where fileId = #{fileId}
+  </select>
+  
+  <select id="queryByFileIds">
+  		SELECT fileid, birthdate, sum(totalnum) as totalnum, SUM(totalsum) from tjtsmcardtxnjrltb
+  		where 
+  		<foreach item="item" index="index" collection="list" open="(" separator=" or " close=")">
+	        fileId = #{item}
+	   </foreach>
+	   group by fileId
+  </select>
+  
   <select id="queryExistFileIds" resultType="java.lang.String">
   	select DISTINCT fileid from tjtsmcardtxnjrltb;
   </select>
@@ -113,8 +126,7 @@
       kktype, unitcode, mobileno, 
       productcompany, productmodel, rsvd
       ) values
-       <foreach collection="list" item="item" index="index"
-           separator=",">
+       <foreach collection="list" item="item" index="index" separator=",">
            (#{item.tjtsmcardtxnjrltbId,jdbcType=BIGINT}, #{item.fileid,jdbcType=VARCHAR}, #{item.fileno,jdbcType=VARCHAR}, 
 	      #{item.unitno,jdbcType=VARCHAR}, #{item.filever,jdbcType=VARCHAR}, #{item.birthdate,jdbcType=VARCHAR}, 
 	      #{item.cardno,jdbcType=VARCHAR}, #{item.cardtype,jdbcType=VARCHAR}, #{item.transdate,jdbcType=VARCHAR}, 

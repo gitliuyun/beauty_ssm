@@ -49,4 +49,12 @@ public interface TjtsmcardtxnjrltbDao {
      * @return
      */
     List<String> queryExistFileIds();
+    /**
+     * 查询指定日志文件汇总信息
+     * @param fileId
+     * @return
+     */
+    Tjtsmcardtxnjrltb queryByFileIdGroup(String fileId);
+    
+    List<Tjtsmcardtxnjrltb> queryByFileIds(List<String> fileIds);
 }
