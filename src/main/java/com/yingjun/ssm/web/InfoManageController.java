@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -30,6 +31,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -209,8 +211,8 @@ public class InfoManageController {
      *采用spring提供的上传文件的方法
      */
     @RequestMapping("springUpload")
-    public String  springUpload(HttpServletRequest request, String fileType) throws IllegalStateException, 
-    	IOException, CloneNotSupportedException, ParseException
+    public String  springUpload(HttpServletRequest request, String fileType, @RequestParam("files") ArrayList<MultipartFile> files) 
+    		throws IllegalStateException, IOException, CloneNotSupportedException, ParseException
     {
     	System.out.println(fileType);
         long  startTime = System.currentTimeMillis();
@@ -223,11 +225,40 @@ public class InfoManageController {
         	//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
         	String savePath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload");
             //将request变成多部分request
-            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            //MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
             //获取multiRequest 中所有的文件名
-            Iterator iter = multiRequest.getFileNames();
+            //Iterator iter = multiRequest.getFileNames();
+        	for (MultipartFile multipartFile : files) {
+        		if(multipartFile != null)
+                {
+                	String filePath = savePath + "/" + multipartFile.getOriginalFilename();
+                    //上传
+                	File file = new File(filePath);
+                	multipartFile.transferTo(file);
+                    List<List<Object>> list = null;
+                    switch (fileType) {
+					case "shop":
+						list = FileReadUtil.readFile(file);
+						fileImportService.importShopInfo(list);
+						break;
+					case "unit":
+						list = FileReadUtil.readFile(file);
+						fileImportService.importUnitInfo(list);
+						break;
+					case "transaction":
+						fileImportService.importTransactionInfo(file);
+						break;
+					case "card":
+						list = FileReadUtil.readFile(file);
+						fileImportService.importCardInfo(list);
+						break;
+					default:
+						break;
+					}
+                }
+        	}
              
-            while(iter.hasNext())
+            /*while(iter.hasNext())
             {
                 //一次遍历所有文件
                 MultipartFile uploadFile = multiRequest.getFile(iter.next().toString());
@@ -259,7 +290,7 @@ public class InfoManageController {
 					}
                 }
                  
-            }
+            }*/
            
         }
         long  endTime = System.currentTimeMillis();

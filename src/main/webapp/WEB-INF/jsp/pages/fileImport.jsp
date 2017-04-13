@@ -36,7 +36,7 @@
 	                    	method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">
 	                            <label>交易信息导入</label>
-	                            <input type="file" name="file">
+	                            <input type="file" name="files" multiple="multiple">
 	                            <input type="hidden" name="fileType" value="transaction">
 								<input type="submit" value="导入"/>
 	                        </div>

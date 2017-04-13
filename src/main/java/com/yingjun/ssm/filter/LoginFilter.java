@@ -32,6 +32,15 @@ public class LoginFilter extends OncePerRequestFilter {
 				break;
 			}
 		}
+		
+		if (uri != null) {
+			String extention = uri.substring(uri.lastIndexOf(".") + 1);
+			if ("css".equals(extention) || "js".equals(extention) || "map".equals(extention)) {
+				// 如果uri中包含不过滤的uri，则不进行过滤
+				doFilter = false;
+			}
+		}
+		
 		if (doFilter) {
 			// 执行过滤
 			// 从session中获取登录者实体
