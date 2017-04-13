@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>自有业务系统</title>
     <!-- Custom CSS -->
     <link href="<%=path%>/resource/dist/css/sb-admin-2.css" rel="stylesheet">
 

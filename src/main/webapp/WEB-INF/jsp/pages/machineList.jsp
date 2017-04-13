@@ -7,7 +7,8 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                白名单列表  <button onclick="analyzeAll()">分析所有机型</button>
+                白名单列表  
+                <button type="button" title="时间较长，请耐心等待" class="btn btn-outline btn-default" onclick="analyzeAll()">分析所有机型</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -23,6 +24,7 @@
                             <th>其他行业是否使用</th>
                             <th>客户投诉</th>
                             <th>是否正式</th>
+                            <th>详情</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -38,8 +40,11 @@
 								<td>${machine.usedinotherindustry}</td>
 								<td>${machine.hascomplain}</td>
 								<td>${machine.isformal}</td>
-								<td><a href="javascript:void(0)" onclick="showDetail('${machine.devicetype}')">详情</a>
-								<a href="javascript:void(0)" onclick="analyze('${machine.devicetype}')">分析</a>
+								<td>
+									<button type="button" class="btn btn-info" onclick="showDetail('${machine.devicetype}')">详情</button>
+								</td>
+								<td>
+									<button type="button" class="btn btn btn-success" onclick="analyze('${machine.devicetype}')">分析</button>
 								</td>
 							</tr>
 						</c:forEach>
