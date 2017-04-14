@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>自有业务系统</title>
+    <title>白名单分析系统</title>
     <!-- Custom CSS -->
     <link href="<%=path%>/resource/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -41,7 +41,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">自有业务系统</a>
+                <a class="navbar-brand" href="index.html">白名单分析系统</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -104,6 +104,10 @@
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)" onclick="window.location.href='<%=basePath%>/druid/sql.html'">sql监控</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="javascript:void(0)" onclick="jumpByAjax('/user/testProgress')">测试</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

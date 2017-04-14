@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/infoManage")
@@ -150,11 +152,19 @@ public class InfoManageController {
     }
     
     @RequestMapping(value = "/analyzeAll", method = RequestMethod.POST)
-    public String analyzeAll(Model model) {
+    @ResponseBody
+    public String analyzeAll(Model model, HttpSession session) throws InterruptedException{
         LOG.info("invoke----------/infoManage/analyze");
-        transactionAnalyzeService.analyzeMachineAll();
-    	return "machineList";
+        transactionAnalyzeService.analyzeMachineAll(session);
+        return "OK";
     }
+    
+    @RequestMapping(value = "/getProgress", method = RequestMethod.POST)
+	@ResponseBody
+	public Double getProgress(HttpSession session) {
+		Double progress =  (Double) session.getAttribute("dealProgress");
+		return progress;
+	}
     
     /**
      * 饼图

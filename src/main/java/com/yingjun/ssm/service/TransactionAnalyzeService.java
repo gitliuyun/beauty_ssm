@@ -1,5 +1,7 @@
 package com.yingjun.ssm.service;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 交易分析
  * @author yang
@@ -15,6 +17,6 @@ public interface TransactionAnalyzeService {
 	/**
 	 * 分析所有机型
 	 */
-	void analyzeMachineAll();
+	String analyzeMachineAll(HttpSession session) throws InterruptedException;
 	
 }

@@ -58,6 +58,15 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+<div class="modal fade" id="loadingModal">
+    <div style="width: 200px;height:20px; z-index: 20000; position: absolute; text-align: center; left: 50%; top: 50%;margin-left:-100px;margin-top:-10px">
+        <div class="progress progress-striped active" style="margin-bottom: 0;">
+            <div class="progress-bar" id="hasCompleted" style="width: 0%;">0%</div>
+        </div>
+        <h5>正在分析，请稍等...</h5>
+    </div>
+</div>
+
 <script>
     function showDetail(deviceType){
     	var url = "<%=basePath%>/infoManage/detailList";
@@ -75,18 +84,35 @@
     	});
     }
     
-    function analyzeAll(){
-    	var url = "<%=basePath%>/infoManage/analyzeAll";
-    	var param = {};
-    	$.post(url, param, function(){
-   			jumpByAjax('/infoManage/machineList');
-    	});
-    }
-    
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
         });
     });
+    
+    function analyzeAll(){
+		$('#loadingModal').modal({backdrop: 'static', keyboard: false});
+		$("#loadingModal").modal("show");
+		var progress = setInterval(refressProgress, 1000);
+		var url = "<%=basePath%>/infoManage/analyzeAll";
+		$.post(url, {}, function(data){
+			clearInterval(progress);
+			$("#hasCompleted").width("100%");
+			$("#loadingModal").modal("hide");
+			setTimeout(function(){
+	   			jumpByAjax('/infoManage/machineList');
+			}, 500);
+		});
+	}
+	
+	function refressProgress(){
+		var url = "<%=basePath%>/infoManage/getProgress";
+		$.post(url, {}, function(data){
+			var strData = parseFloat(data)*100;
+			var ret = strData.toString()+"%";
+			$("#hasCompleted").width(ret);
+			$("#hasCompleted").html(ret);
+		});
+	}
     
 </script>

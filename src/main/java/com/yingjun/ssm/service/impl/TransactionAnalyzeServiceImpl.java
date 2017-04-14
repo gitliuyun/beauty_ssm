@@ -1,6 +1,9 @@
 package com.yingjun.ssm.service.impl;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,11 +65,14 @@ public class TransactionAnalyzeServiceImpl implements TransactionAnalyzeService 
 	}
 	
 	@Override
-	public void analyzeMachineAll() {
+	public String analyzeMachineAll(HttpSession session) throws InterruptedException {
 		List<String> allMachine = machineinfoDao.queryAllDeviceType();
-		for (String s:allMachine) {
-			analyzeMachine(s);
+		int total = allMachine.size();
+		for (int i = 0; i < total; i ++) {
+			session.setAttribute("dealProgress", i * 1.0 / total);
+			analyzeMachine(allMachine.get(i));
 		}
+		return "OK";
 	}
 
 }

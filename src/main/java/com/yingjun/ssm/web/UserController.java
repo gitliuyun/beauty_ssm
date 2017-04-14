@@ -77,4 +77,10 @@ public class UserController {
 		LOG.info("invoke----------/user/tables");
 		return "tables";
 	}
+	
+	@RequestMapping(value = "/testProgress", method = RequestMethod.POST)
+	public String testProgress(Model model) {
+		LOG.info("invoke----------/user/testProgress");
+		return "testProgress";
+	}
 }
