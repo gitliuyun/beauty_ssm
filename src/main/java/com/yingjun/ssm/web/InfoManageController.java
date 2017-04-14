@@ -25,18 +25,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Null;
 
 @Controller
 @RequestMapping("/infoManage")
@@ -171,6 +169,7 @@ public class InfoManageController {
     		total = 0;
     	}
     	Integer topTen = 0;
+    	DecimalFormat df = new DecimalFormat("0.00");  
     	StringBuffer sb = new StringBuffer();
     	sb.append("[");
     	for (Machineinfo mf:info) {
@@ -179,16 +178,13 @@ public class InfoManageController {
     		}
     		sb.append("{label:'");
     		sb.append(mf.getDevicetype());
-    		sb.append("',data:'");
-    		sb.append(mf.getCardnumber() * 1.0 / total);
+    		sb.append("',data:");
+    		sb.append(df.format(mf.getCardnumber() * 1.0 / total));
     		topTen += mf.getCardnumber();
-    		sb.append("'},");
+    		sb.append("},");
     	}
-    	/*if (sb.toString().endsWith(",")) {
-    		sb = new StringBuffer(sb.substring(0, sb.length() - 1));
-    	}*/
     	sb.append("{label: \"其他\",data:");
-    	sb.append((total - topTen) * 1.0 / total);
+    	sb.append(df.format((total - topTen) * 1.0 / total));
     	sb.append("}");
     	sb.append("]");
     	model.addAttribute("percentData", sb.toString());
