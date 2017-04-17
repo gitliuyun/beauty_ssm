@@ -80,8 +80,8 @@ public class FileImportServiceImpl implements FileImportService {
 		Set<String> deviceSet = new HashSet<>();
 		for (int i = 1; i < list.size(); i++) {
 			List<Object> row = list.get(i);
+			String productModal = row.get(10).toString().toUpperCase();
 			if (!existCardNos.contains(row.get(1).toString())) {
-				String productModal = row.get(10).toString().toUpperCase();
 				Biwhiteardinfotb card = new Biwhiteardinfotb();
 				card.setProductmodel(productModal);
 				card.setCardno(row.get(1).toString());
@@ -101,7 +101,14 @@ public class FileImportServiceImpl implements FileImportService {
 					deviceSet.add(productModal);
 				}
 				biwhiteardinfotbDao.insert(card);
+				
 			}
+			Tjtsmcardtxnjrltb update = new Tjtsmcardtxnjrltb();
+			update.setCardno(row.get(1).toString());
+			update.setMobileno(row.get(7).toString());
+			update.setProductcompany(row.get(8).toString());
+			update.setProductmodel(productModal);
+			tjtsmcardtxnjrltbDao.updateByCardNo(update);
 		}
 		return "OK";
 	}

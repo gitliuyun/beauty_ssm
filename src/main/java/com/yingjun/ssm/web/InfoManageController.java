@@ -16,6 +16,7 @@ import com.yingjun.ssm.service.TransactionAnalyzeService;
 import com.yingjun.ssm.util.FileReadUtil;
 import com.yingjun.ssm.util.VOTransferUtil;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -259,41 +262,6 @@ public class InfoManageController {
 					}
                 }
         	}
-             
-            /*while(iter.hasNext())
-            {
-                //一次遍历所有文件
-                MultipartFile uploadFile = multiRequest.getFile(iter.next().toString());
-                if(uploadFile != null)
-                {
-                	String filePath = savePath + "/" + uploadFile.getOriginalFilename();
-                    //上传
-                	File file = new File(filePath);
-                    uploadFile.transferTo(file);
-                    List<List<Object>> list = null;
-                    switch (fileType) {
-					case "shop":
-						list = FileReadUtil.readFile(file);
-						fileImportService.importShopInfo(list);
-						break;
-					case "unit":
-						list = FileReadUtil.readFile(file);
-						fileImportService.importUnitInfo(list);
-						break;
-					case "transaction":
-						fileImportService.importTransactionInfo(file);
-						break;
-					case "card":
-						list = FileReadUtil.readFile(file);
-						fileImportService.importCardInfo(list);
-						break;
-					default:
-						break;
-					}
-                }
-                 
-            }*/
-           
         }
         long  endTime = System.currentTimeMillis();
         System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");

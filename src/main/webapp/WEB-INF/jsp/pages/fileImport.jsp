@@ -16,7 +16,7 @@
 	                    	method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">
 	                            <label>商户信息导入</label>
-	                            <input type="file" name="file">
+	                            <input type="file" name="files" multiple="multiple">
 	                            <input type="hidden" name="fileType" value="shop">
 								<input type="submit" value="导入"/>
 	                        </div>
@@ -25,15 +25,15 @@
 	                    	method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">
 	                            <label>单位信息导入</label>
-	                            <input type="file" name="file">
+	                            <input type="file" name="files" multiple="multiple">
 	                            <input type="hidden" name="fileType" value="unit">
 								<input type="submit" value="导入"/>
 	                        </div>
 	                    </form>
 	                </div>
                 	<div class="col-lg-6">
-                		<form role="form" name="Form2" action="<%=path%>/infoManage/springUpload" 
-	                    	method="post"  enctype="multipart/form-data">
+                		<form role="form" name="Form2" action="<%=path%>/infoManage/springUpload"
+	                    	 method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">
 	                            <label>交易信息导入</label>
 	                            <input type="file" name="files" multiple="multiple">
@@ -45,7 +45,7 @@
 	                    	method="post"  enctype="multipart/form-data">
 	                        <div class="form-group">
 	                            <label>开卡信息导入</label>
-	                            <input type="file" name="file">
+	                            <input type="file" name="files" multiple="multiple">
 	                            <input type="hidden" name="fileType" value="card">
 								<input type="submit" value="导入"/>
 	                        </div>

@@ -22,6 +22,9 @@ public class TimeUtils {
 
 	public static Date getDateFromString(String s){
 		Calendar calendar = Calendar.getInstance();
+		if (s == null) {
+			return calendar.getTime();
+		}
 		calendar.set(Calendar.YEAR, Integer.parseInt(s.substring(0, 4)));
 		calendar.set(Calendar.MONTH, Integer.parseInt(s.substring(4, 6)));
 		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(s.substring(6, 8)));

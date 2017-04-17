@@ -362,4 +362,12 @@
       rsvd = #{rsvd,jdbcType=VARCHAR}
     where tjtsmcardtxnjrltb_id = #{tjtsmcardtxnjrltbId,jdbcType=BIGINT}
   </update>
+  
+  <update id="updateByCardNo" parameterType="com.yingjun.ssm.entity.Tjtsmcardtxnjrltb">
+  	update tjtsmcardtxnjrltb set  
+  	  mobileno = #{mobileno,jdbcType=VARCHAR},
+      productcompany = #{productcompany,jdbcType=VARCHAR},
+      productmodel = #{productmodel,jdbcType=VARCHAR}
+    where cardno = #{cardno,jdbcType=VARCHAR}
+  </update>
 </mapper>

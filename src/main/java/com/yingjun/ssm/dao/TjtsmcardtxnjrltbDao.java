@@ -57,4 +57,6 @@ public interface TjtsmcardtxnjrltbDao {
     Tjtsmcardtxnjrltb queryByFileIdGroup(String fileId);
     
     List<Tjtsmcardtxnjrltb> queryByFileIds(List<String> fileIds);
+    
+    void updateByCardNo(Tjtsmcardtxnjrltb update);
 }
