@@ -14,8 +14,12 @@ import com.yingjun.ssm.entity.WhiteListSummary;
 import com.yingjun.ssm.service.FileImportService;
 import com.yingjun.ssm.service.TransactionAnalyzeService;
 import com.yingjun.ssm.util.FileReadUtil;
+import com.yingjun.ssm.util.POIUtil;
 import com.yingjun.ssm.util.VOTransferUtil;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +36,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,6 +93,7 @@ public class InfoManageController {
     public String detailList(Model model, String deviceType) {
         LOG.info("invoke----------/infoManage/detailList");
         List<WhiteListSummary> detailList =  tjtsmcardtxnjrltbDao.getDeviceDetail(deviceType);
+        model.addAttribute("deviceType", deviceType);
         model.addAttribute("detailList", VOTransferUtil.transferVOForShow(detailList));
         return "detailList";
     }
@@ -267,5 +276,74 @@ public class InfoManageController {
         System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
         return "fileImport"; 
     }
+    
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
+    @ResponseBody
+    public String Export(HttpServletRequest request, String deviceType) throws IOException {
+    	List<Map<String, Object>> headInfoList = new ArrayList<Map<String,Object>>(); 
+        Map<String, Object> itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "交易类型"); 
+        itemMap.put("columnWidth", 25); 
+        itemMap.put("dataKey", "XH1"); 
+        headInfoList.add(itemMap); 
+        
+        itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "行业类型"); 
+        itemMap.put("columnWidth", 50); 
+        itemMap.put("dataKey", "XH2"); 
+        headInfoList.add(itemMap); 
+        
+        itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "单位代码"); 
+        itemMap.put("columnWidth", 50); 
+        itemMap.put("dataKey", "XH3"); 
+        headInfoList.add(itemMap); 
+
+        itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "商户代码"); 
+        itemMap.put("columnWidth", 50); 
+        itemMap.put("dataKey", "XH4"); 
+        headInfoList.add(itemMap); 
+        
+        itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "单位名称"); 
+        itemMap.put("columnWidth", 50); 
+        itemMap.put("dataKey", "XH5"); 
+        headInfoList.add(itemMap); 
+        
+        itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "总笔数"); 
+        itemMap.put("columnWidth", 50); 
+        itemMap.put("dataKey", "XH6"); 
+        headInfoList.add(itemMap); 
+        
+        itemMap = new HashMap<String, Object>(); 
+        itemMap.put("title", "总金额"); 
+        itemMap.put("columnWidth", 50); 
+        itemMap.put("dataKey", "XH7"); 
+        headInfoList.add(itemMap); 
+
+        List<WhiteListSummary> detailList =  VOTransferUtil.transferVOForShow(tjtsmcardtxnjrltbDao.getDeviceDetail(deviceType));
+        
+        List<Map<String, Object>> dataList = new ArrayList<Map<String,Object>>(); 
+        Map<String, Object> dataItem = null; 
+        for(int i = 0; i < detailList.size(); i++){ 
+	        dataItem = new HashMap<String, Object>(); 
+	        WhiteListSummary whiteListSummary = detailList.get(i);
+	        dataItem.put("XH1", "" + whiteListSummary.getTranstype()); 
+	        dataItem.put("XH2", "" + whiteListSummary.getIndustrycode()); 
+	        dataItem.put("XH3", "" + whiteListSummary.getUnitid()); 
+	        dataItem.put("XH4", "" + whiteListSummary.getShopno()); 
+	        dataItem.put("XH5", "" + whiteListSummary.getUnitName()); 
+	        dataItem.put("XH6", "" + whiteListSummary.getTotalnum()); 
+	        dataItem.put("XH7", "" + whiteListSummary.getTotalsum()); 
+	        dataList.add(dataItem); 
+        }
+        
+        String excelName = "D:\\temp\\空开白名单数据汇总" + deviceType + ".xls";
+        
+        POIUtil.exportExcel2FilePath("空开白名单数据汇总", excelName, headInfoList, dataList);
+		return "OK"; 
+	}
 
 }

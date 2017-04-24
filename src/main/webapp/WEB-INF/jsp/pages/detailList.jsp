@@ -7,7 +7,8 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                白名单列表
+                白名单详情
+                <button type="button" class="btn btn-outline btn-default" onclick="exportExcel('${deviceType}')">导出</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -51,4 +52,14 @@
             responsive: true
         });
     });
+    
+    function exportExcel(deviceType){
+    	var url = "<%=basePath%>/infoManage/exportExcel";
+    	var param = {"deviceType":deviceType};
+    	$.post(url, param, function(msg){
+    		if (msg == "OK") {
+    			alert("导出成功，请到D:\\temp查看导出文件");
+    		}
+    	});
+    }
 </script>
