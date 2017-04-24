@@ -279,7 +279,7 @@ public class InfoManageController {
     
     @RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
     @ResponseBody
-    public String Export(HttpServletRequest request, String deviceType) throws IOException {
+    public String Export(HttpServletRequest request, HttpServletResponse response, String deviceType) throws IOException {
     	List<Map<String, Object>> headInfoList = new ArrayList<Map<String,Object>>(); 
         Map<String, Object> itemMap = new HashMap<String, Object>(); 
         itemMap.put("title", "交易类型"); 
@@ -340,9 +340,22 @@ public class InfoManageController {
 	        dataList.add(dataItem); 
         }
         
-        String excelName = "D:\\temp\\空开白名单数据汇总" + deviceType + ".xls";
+        String excelName = "空开白名单数据汇总" + deviceType + ".xls";
         
-        POIUtil.exportExcel2FilePath("空开白名单数据汇总", excelName, headInfoList, dataList);
+        excelName = new String(excelName.getBytes(),"iso-8859-1");
+        
+        HSSFWorkbook hssfWorkbook = POIUtil.exportExcel2FilePath("空开白名单数据汇总", headInfoList, dataList);
+        
+        try {
+            response.setHeader("Content-Disposition", "attachment; filename=" + excelName);
+            response.setContentType("application/vnd.ms-excel; charset=utf-8") ;
+            OutputStream out = response.getOutputStream() ;
+            hssfWorkbook.write(out) ;
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
 		return "OK"; 
 	}
 

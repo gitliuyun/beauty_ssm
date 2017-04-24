@@ -8,8 +8,13 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 白名单详情
-                <button type="button" class="btn btn-outline btn-default" onclick="exportExcel('${deviceType}')">导出</button>
+                <button type="button" class="btn btn-outline btn-default" onclick="exportExcel()">导出</button>
             </div>
+            
+            <form id="excelExportForm" action="<%=basePath%>/infoManage/exportExcel" method="post" hidden="hidden">
+            	<input type="hidden" name="deviceType" value="${deviceType}">
+            </form>
+            
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -53,13 +58,7 @@
         });
     });
     
-    function exportExcel(deviceType){
-    	var url = "<%=basePath%>/infoManage/exportExcel";
-    	var param = {"deviceType":deviceType};
-    	$.post(url, param, function(msg){
-    		if (msg == "OK") {
-    			alert("导出成功，请到D:\\temp查看导出文件");
-    		}
-    	});
+    function exportExcel(){
+    	$("#excelExportForm").submit();
     }
 </script>

@@ -163,7 +163,7 @@ public class POIUtil {
 	 * @throws java.io.IOException
 	 * 
 	 */
-	public static void exportExcel2FilePath(String sheetName, String filePath, List<Map<String, Object>> headInfoList,
+	public static HSSFWorkbook exportExcel2FilePath(String sheetName, List<Map<String, Object>> headInfoList,
 			List<Map<String, Object>> dataList) throws IOException {
 		POIUtil poiUtil = new POIUtil();
 		// 1.创建 Workbook
@@ -175,6 +175,7 @@ public class POIUtil {
 		// 4.写入内容
 		poiUtil.writeContent(hssfWorkbook, hssfSheet, 1, headInfoList, dataList);
 		// 5.保存文件到filePath中
-		poiUtil.write2FilePath(hssfWorkbook, filePath);
+		//poiUtil.write2FilePath(hssfWorkbook, filePath);
+		return hssfWorkbook;
 	}
 }
