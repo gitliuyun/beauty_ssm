@@ -88,10 +88,12 @@
 					productmodel = #{deviceType} and (transtype = 1 or transtype = 2)
 				GROUP BY
 					unitid,
-					shopno
+					shopno,
+					transtype
 			) smy
 		LEFT JOIN dictshopcodetb sp ON smy.shopno = sp.shopno
 		LEFT JOIN dictbmacunitcodetb mac ON smy.unitid = mac.unitid
+		ORDER BY smy.transtype, smy.industrycode, unitid
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

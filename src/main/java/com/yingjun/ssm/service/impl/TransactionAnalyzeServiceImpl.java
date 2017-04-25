@@ -53,13 +53,14 @@ public class TransactionAnalyzeServiceImpl implements TransactionAnalyzeService 
 		//判断是否符合转正式名单条件
 		info.setIsformal("否");
 		if (busNumber >= 10 && subWayNumber >= 10 && "是".equals(info.getUsedinotherindustry()) && "否".equals(info.getHascomplain())) {
-			Long month = TimeUtils.getTimeFormatText(info.getRecordtime());
+			/*Long month = TimeUtils.getTimeFormatText(info.getRecordtime());
 			if (month >= 3 && info.getCardnumber() > 40) {
 				info.setIsformal("是");
 			}
 			if (month >= 1 && month < 3 && info.getCardnumber() > 50) {
 				info.setIsformal("是");
-			}
+			}*/
+			info.setIsformal("是");
 		}
 		machineinfoDao.updateByPrimaryKey(info);
 	}
