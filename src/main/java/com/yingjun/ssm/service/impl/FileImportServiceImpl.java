@@ -23,6 +23,7 @@ import com.yingjun.ssm.entity.Dictshopcodetb;
 import com.yingjun.ssm.entity.Machineinfo;
 import com.yingjun.ssm.entity.Tjtsmcardtxnjrltb;
 import com.yingjun.ssm.service.FileImportService;
+import com.yingjun.ssm.util.BiWhiteTransferUtil;
 import com.yingjun.ssm.util.TimeUtils;
 @Service
 public class FileImportServiceImpl implements FileImportService {
@@ -80,17 +81,18 @@ public class FileImportServiceImpl implements FileImportService {
 		Set<String> deviceSet = new HashSet<>();
 		for (int i = 1; i < list.size(); i++) {
 			List<Object> row = list.get(i);
-			String productModal = row.get(10).toString().toUpperCase();
-			if (!existCardNos.contains(row.get(1).toString())) {
+			Biwhiteardinfotb biwhiteardinfotb = BiWhiteTransferUtil.transferRowToBean(list.get(0), row);
+			String productModal = biwhiteardinfotb.getProductmodel().toUpperCase();
+			if (!existCardNos.contains(biwhiteardinfotb.getCardno())) {
 				Biwhiteardinfotb card = new Biwhiteardinfotb();
 				card.setProductmodel(productModal);
-				card.setCardno(row.get(1).toString());
+				card.setCardno(biwhiteardinfotb.getCardno());
 				//发卡日期
-				card.setRsvd(row.get(4).toString());
-				card.setKktype(row.get(5).toString());
-				card.setUnitcode(row.get(6).toString());
-				card.setMobileno(row.get(7).toString());
-				card.setProductcompany(row.get(8).toString());
+				card.setRsvd(biwhiteardinfotb.getRsvd());
+				card.setKktype(biwhiteardinfotb.getKktype());
+				card.setUnitcode(biwhiteardinfotb.getUnitcode());
+				card.setMobileno(biwhiteardinfotb.getMobileno());
+				card.setProductcompany(biwhiteardinfotb.getProductcompany());
 				
 				if (!existDeviceTypes.contains(productModal) && !deviceSet.contains(productModal)) {
 					Machineinfo info = new Machineinfo();
@@ -104,9 +106,9 @@ public class FileImportServiceImpl implements FileImportService {
 				
 			}
 			Tjtsmcardtxnjrltb update = new Tjtsmcardtxnjrltb();
-			update.setCardno(row.get(1).toString());
-			update.setMobileno(row.get(7).toString());
-			update.setProductcompany(row.get(8).toString());
+			update.setCardno(biwhiteardinfotb.getCardno());
+			update.setMobileno(biwhiteardinfotb.getMobileno());
+			update.setProductcompany(biwhiteardinfotb.getProductcompany());
 			update.setProductmodel(productModal);
 			tjtsmcardtxnjrltbDao.updateByCardNo(update);
 		}

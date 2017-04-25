@@ -9,8 +9,11 @@ public class VOTransferUtil {
 		for (WhiteListSummary ws:detailList) {
 			if ("1".equals(ws.getTranstype())) {
 				ws.setTranstype("消费");
-			} else {
+			} else if ("2".equals(ws.getTranstype())) {
 				ws.setTranstype("充值");
+			} else if ("3".equals(ws.getTranstype())) {
+				ws.setTranstype("补票");
+			} else {
 			}
 			switch (ws.getIndustrycode()) {
 			case "7510":

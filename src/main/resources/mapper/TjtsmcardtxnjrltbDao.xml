@@ -85,7 +85,7 @@
 				FROM
 					tjtsmcardtxnjrltb
 				WHERE
-					productmodel = #{deviceType} and (transtype = 1 or transtype = 2)
+					productmodel = #{deviceType}
 				GROUP BY
 					unitid,
 					shopno,
