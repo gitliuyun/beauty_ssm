@@ -26,6 +26,7 @@
 //Flot Pie Chart
 $(function() {
     var data = ${percentData};
+    console.log(data);
     var plotObj = $.plot($("#flot-pie-chart"), data, {
         series: {
             pie: {

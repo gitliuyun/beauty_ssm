@@ -191,7 +191,6 @@ public class InfoManageController {
     		total = 0;
     	}
     	Integer topTen = 0;
-    	DecimalFormat df = new DecimalFormat("0.00");  
     	StringBuffer sb = new StringBuffer();
     	sb.append("[");
     	for (Machineinfo mf:info) {
@@ -201,12 +200,12 @@ public class InfoManageController {
     		sb.append("{label:'");
     		sb.append(mf.getDevicetype());
     		sb.append("',data:");
-    		sb.append(df.format(mf.getCardnumber() * 1.0 / total));
+    		sb.append(mf.getCardnumber());
     		topTen += mf.getCardnumber();
     		sb.append("},");
     	}
     	sb.append("{label: \"其他\",data:");
-    	sb.append(df.format((total - topTen) * 1.0 / total));
+    	sb.append(total - topTen);
     	sb.append("}");
     	sb.append("]");
     	model.addAttribute("percentData", sb.toString());
