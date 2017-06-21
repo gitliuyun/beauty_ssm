@@ -57,7 +57,7 @@
   </select>
   
   <select id="countOpenCardNo" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select count(DISTINCT cardno) from tjtsmcardtxnjrltb where productmodel = #{machineType,jdbcType=VARCHAR};
+    select count(DISTINCT cardno) from biwhitecardinfotb where productmodel = #{machineType,jdbcType=VARCHAR};
   </select>
   
   <select id="countIndustryNo" resultType="java.lang.Integer">
